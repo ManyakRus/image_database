@@ -1,0 +1,4 @@
+{
+  "Service1": "github.com/ManyakRus/1",
+  "Service2": "github.com/ManyakRus/2"
+}
