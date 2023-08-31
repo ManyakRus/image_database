@@ -9,6 +9,12 @@ import (
 	"strings"
 )
 
+// FONT_SIZE_ENTITY - размер шрифта Entity
+var FONT_SIZE_ENTITY = 16
+
+// FONT_SIZE_BENDS - размер шрифта стрелки куриная лапка
+var FONT_SIZE_BENDS = 8
+
 // FONT_SIZE_SHAPE - размер шрифта прямоугольника
 var FONT_SIZE_SHAPE = 16
 
@@ -19,6 +25,133 @@ var FONT_SIZE_GROUP = 10
 var FONT_SIZE_EDGE = 8
 
 //var doc = etree.NewDocument()
+
+// CreateElement_Entity - создаёт элемент - Entity
+func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttribute string) *etree.Element {
+
+	Width := findWidth_Entity(ElementName)
+	Height := findHeight_Entity(ElementName)
+	sWidth := fmt.Sprintf("%.1f", float32(Width))
+	sHeight := fmt.Sprintf("%.1f", float32(Height))
+
+	sFontSize := strconv.Itoa(FONT_SIZE_ENTITY)
+
+	//ищем graph
+	var ElementGraph *etree.Element
+	ElementGraph2 := ElementGraph0.SelectElement("graph")
+	if ElementGraph2 != nil {
+		ElementGraph = ElementGraph2
+	} else {
+		ElementGraph = ElementGraph0
+	}
+
+	//node
+	ElementNode := ElementGraph.CreateElement("node")
+	sId := FindId(ElementGraph0, ElementNode)
+	ElementNode.CreateAttr("id", sId)
+	//ElementNode.CreateAttr("id", "n"+strconv.Itoa(ElementNode.Index()))
+
+	//data
+	ElementData := ElementNode.CreateElement("data")
+	ElementData.CreateAttr("key", "d4")
+
+	//data
+	ElementData2 := ElementNode.CreateElement("data")
+	ElementData2.CreateAttr("key", "d5")
+
+	//y:GenericNode
+	ElementYGenericNode := ElementData2.CreateElement("y:GenericNode")
+	ElementYGenericNode.CreateAttr("configuration", "com.yworks.entityRelationship.big_entity")
+
+	//YGeometry
+	ElementYGeometry := ElementYGenericNode.CreateElement("y:Geometry")
+	ElementYGeometry.CreateAttr("height", sHeight)
+	ElementYGeometry.CreateAttr("width", sWidth)
+	ElementYGeometry.CreateAttr("x", "0.0")
+	ElementYGeometry.CreateAttr("y", "0.0")
+
+	//YFill
+	ElementYFill := ElementYGenericNode.CreateElement("y:Fill")
+	ElementYFill.CreateAttr("color", "#E8EEF7")
+	ElementYFill.CreateAttr("color2", "#B7C9E3")
+	ElementYFill.CreateAttr("transparent", "false")
+
+	//BorderStyle
+	ElementBorderStyle := ElementYGenericNode.CreateElement("y:BorderStyle")
+	ElementBorderStyle.CreateAttr("color", "#000000")
+	ElementBorderStyle.CreateAttr("type", "line")
+	ElementBorderStyle.CreateAttr("width", "1.0")
+
+	//NodeLabel
+	ElementNodeLabel := ElementYGenericNode.CreateElement("y:NodeLabel")
+	ElementNodeLabel.CreateAttr("alignment", "center")
+	ElementNodeLabel.CreateAttr("autoSizePolicy", "content")
+	ElementNodeLabel.CreateAttr("backgroundColor", "#B7C9E3")
+	ElementNodeLabel.CreateAttr("configuration", "com.yworks.entityRelationship.label.name")
+	ElementNodeLabel.CreateAttr("fontFamily", "Dialog")
+	ElementNodeLabel.CreateAttr("fontSize", sFontSize)
+	ElementNodeLabel.CreateAttr("fontStyle", "plain")
+	ElementNodeLabel.CreateAttr("hasLineColor", "false")
+	ElementNodeLabel.CreateAttr("height", sHeight)
+	ElementNodeLabel.CreateAttr("horizontalTextPosition", "center")
+	ElementNodeLabel.CreateAttr("iconTextGap", "4")
+	ElementNodeLabel.CreateAttr("modelName", "internal")
+	ElementNodeLabel.CreateAttr("modelPosition", "c")
+	ElementNodeLabel.CreateAttr("textColor", "#000000")
+	ElementNodeLabel.CreateAttr("verticalTextPosition", "bottom")
+	ElementNodeLabel.CreateAttr("visible", "true")
+	ElementNodeLabel.CreateAttr("width", sWidth)
+	ElementNodeLabel.CreateAttr("x", "0.0")
+	ElementNodeLabel.CreateAttr("xml:space", "preserve")
+	ElementNodeLabel.CreateAttr("y", "0.0")
+	ElementNodeLabel.CreateText(ElementName)
+
+	//NodeLabel
+	ElementNodeLabel2 := ElementYGenericNode.CreateElement("y:NodeLabel")
+	ElementNodeLabel2.CreateAttr("alignment", "left")
+	ElementNodeLabel2.CreateAttr("autoSizePolicy", "content")
+	ElementNodeLabel2.CreateAttr("configuration", "com.yworks.entityRelationship.label.attributes")
+	ElementNodeLabel2.CreateAttr("fontFamily", "Dialog")
+	ElementNodeLabel2.CreateAttr("fontSize", sFontSize)
+	ElementNodeLabel2.CreateAttr("fontStyle", "plain")
+	ElementNodeLabel2.CreateAttr("hasBackgroundColor", "false")
+	ElementNodeLabel2.CreateAttr("hasLineColor", "false")
+	ElementNodeLabel2.CreateAttr("height", sHeight)
+	ElementNodeLabel2.CreateAttr("horizontalTextPosition", "center")
+	ElementNodeLabel2.CreateAttr("iconTextGap", "4")
+	ElementNodeLabel2.CreateAttr("modelName", "custom")
+	ElementNodeLabel2.CreateAttr("textColor", "#000000")
+	ElementNodeLabel2.CreateAttr("verticalTextPosition", "top")
+	ElementNodeLabel2.CreateAttr("visible", "true")
+	ElementNodeLabel2.CreateAttr("width", sWidth)
+	ElementNodeLabel2.CreateAttr("x", "0.0")
+	ElementNodeLabel2.CreateAttr("xml:space", "preserve")
+	ElementNodeLabel2.CreateAttr("y", "0.0")
+	ElementNodeLabel2.CreateText(ElementAttribute)
+
+	//y:LabelModel
+	ElementYLabelModel := ElementNodeLabel2.CreateElement("y:LabelModel")
+
+	//y:ErdAttributesNodeLabelModel
+	ElementYLabelModel.CreateElement("y:ErdAttributesNodeLabelModel")
+
+	//y:ModelParameter
+	ElementYModelParameter := ElementYGenericNode.CreateElement("y:ModelParameter")
+
+	//y:ErdAttributesNodeLabelModelParameter
+	ElementYModelParameter.CreateElement("y:ErdAttributesNodeLabelModelParameter")
+
+	//y:StyleProperties
+	ElementYStyleProperties := ElementYGenericNode.CreateElement("y:StyleProperties")
+
+	//y:Property
+	ElementYProperty := ElementYStyleProperties.CreateElement("y:Property")
+	ElementYProperty.CreateAttr("class", "java.lang.Boolean")
+	ElementYProperty.CreateAttr("name", "y.view.ShadowNodePainter.SHADOW_PAINTING")
+	ElementYProperty.CreateAttr("value", "true")
+
+	return ElementNode
+}
 
 // CreateElement_Shape - создаёт элемент xgml - прямоугольник
 func CreateElement_Shape(ElementGraph0 *etree.Element, ElementName string) *etree.Element {
@@ -495,6 +628,56 @@ func CreateElement_Edge_blue(ElementGraph, ElementFrom, ElementTo *etree.Element
 	ElementYBendStyle.CreateAttr("smoothed", "false")
 
 	return ElementEdge
+}
+
+// findWidth_Entity - возвращает число - ширину элемента
+func findWidth_Entity(ElementName string) int {
+	Otvet := FONT_SIZE_ENTITY * 2
+
+	LenMax := findMaxLenRow(ElementName)
+	var OtvetF float64
+	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE/2)
+	Otvet = int(math.Round(OtvetF))
+
+	return Otvet
+}
+
+// findHeight_Entity - возвращает число - высоту элемента
+func findHeight_Entity(ElementName string) int {
+
+	Otvet := 10 + FONT_SIZE_ENTITY*3
+
+	RowsTotal := countLines(ElementName)
+
+	Otvet = Otvet + (RowsTotal-1)*FONT_SIZE_SHAPE*2
+
+	return Otvet
+
+}
+
+// findWidth_Bends - возвращает число - ширину элемента
+func findWidth_Bends(ElementName string) int {
+	Otvet := FONT_SIZE_BENDS * 2
+
+	LenMax := findMaxLenRow(ElementName)
+	var OtvetF float64
+	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE/2)
+	Otvet = int(math.Round(OtvetF))
+
+	return Otvet
+}
+
+// findHeight_Bends - возвращает число - высоту элемента
+func findHeight_Bends(ElementName string) int {
+
+	Otvet := 10 + FONT_SIZE_BENDS*3
+
+	RowsTotal := countLines(ElementName)
+
+	Otvet = Otvet + (RowsTotal-1)*FONT_SIZE_SHAPE*2
+
+	return Otvet
+
 }
 
 // findWidth_Shape - возвращает число - ширину элемента

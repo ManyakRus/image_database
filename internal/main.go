@@ -3,10 +3,10 @@ package main
 import (
 	"github.com/ManyakRus/image_database/internal/config"
 	"github.com/ManyakRus/image_database/internal/constants"
-	"github.com/ManyakRus/image_database/internal/load_json"
 	"github.com/ManyakRus/image_database/internal/logic"
 	ConfigMain "github.com/ManyakRus/starter/config"
 	"github.com/ManyakRus/starter/log"
+	"github.com/ManyakRus/starter/postgres_gorm"
 )
 
 func main() {
@@ -18,7 +18,7 @@ func StartApp() {
 	config.FillSettings()
 	config.FillFlags()
 
-	load_json.LoadJSON()
+	postgres_gorm.StartDB()
 
 	FileName := config.Settings.FILENAME_GRAPHML
 	log.Info("directory: ", config.Settings.DIRECTORY_SOURCE)
