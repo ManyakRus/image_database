@@ -12,21 +12,16 @@ func TestCreateNewGraphml(t *testing.T) {
 
 	}
 
-	Shape2 := CreateElement_Shape(ElementGraph, "Shape2")
-	//ElementGraph := DocXML.FindElement("/section/section")
+	CreateElement_Entity(ElementGraph, "Entity1", "Field1\nField2\nField3\n1234567890")
+	//Shape2 := CreateElement_Shape(ElementGraph, "Shape2")
+	//Group1 := CreateElement_Group(ElementGraph, "Group1")
+	//Shape1 := CreateElement_Shape(Group1, "Shape1")
+	//CreateElement_Edge(ElementGraph, Shape1, Shape2, "edge1", "descr")
+	//CreateElement_Edge_blue(ElementGraph, Shape2, Shape1, "edge2", "descr2")
 	//
-	Group1 := CreateElement_Group(ElementGraph, "Group1")
+	//if Shape1 == nil || Shape2 == nil {
 	//
-	//Element1 := CreateElement_Shape(ElementGraph, Group1, "Entity1")
-	Shape1 := CreateElement_Shape(Group1, "Shape1")
-	CreateElement_Edge(ElementGraph, Shape1, Shape2, "edge1", "descr")
-	CreateElement_Edge_blue(ElementGraph, Shape2, Shape1, "edge2", "descr2")
-	//
-	//CreateElement_Edge_blue(ElementGraph, Element1.Index(), Element2.Index(), "test()")
-
-	if Shape1 == nil || Shape2 == nil {
-
-	}
+	//}
 
 	FileName := dir + "test" + micro.SeparatorFile() + "test.graphml"
 	//DocXML.IndentTabs()

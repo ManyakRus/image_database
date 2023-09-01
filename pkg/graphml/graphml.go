@@ -29,8 +29,8 @@ var FONT_SIZE_EDGE = 8
 // CreateElement_Entity - создаёт элемент - Entity
 func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttribute string) *etree.Element {
 
-	Width := findWidth_Entity(ElementName)
-	Height := findHeight_Entity(ElementName)
+	Width := findWidth_Entity(ElementName + "\n" + ElementAttribute)
+	Height := findHeight_Entity(ElementName + ElementAttribute)
 	sWidth := fmt.Sprintf("%.1f", float32(Width))
 	sHeight := fmt.Sprintf("%.1f", float32(Height))
 
@@ -67,8 +67,8 @@ func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttr
 	ElementYGeometry := ElementYGenericNode.CreateElement("y:Geometry")
 	ElementYGeometry.CreateAttr("height", sHeight)
 	ElementYGeometry.CreateAttr("width", sWidth)
-	ElementYGeometry.CreateAttr("x", "0.0")
-	ElementYGeometry.CreateAttr("y", "0.0")
+	ElementYGeometry.CreateAttr("x", "-270.0")
+	ElementYGeometry.CreateAttr("y", "-65.0")
 
 	//YFill
 	ElementYFill := ElementYGenericNode.CreateElement("y:Fill")
@@ -96,14 +96,14 @@ func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttr
 	ElementNodeLabel.CreateAttr("horizontalTextPosition", "center")
 	ElementNodeLabel.CreateAttr("iconTextGap", "4")
 	ElementNodeLabel.CreateAttr("modelName", "internal")
-	ElementNodeLabel.CreateAttr("modelPosition", "c")
+	ElementNodeLabel.CreateAttr("modelPosition", "t")
 	ElementNodeLabel.CreateAttr("textColor", "#000000")
 	ElementNodeLabel.CreateAttr("verticalTextPosition", "bottom")
 	ElementNodeLabel.CreateAttr("visible", "true")
 	ElementNodeLabel.CreateAttr("width", sWidth)
-	ElementNodeLabel.CreateAttr("x", "0.0")
+	ElementNodeLabel.CreateAttr("x", "16.0")
 	ElementNodeLabel.CreateAttr("xml:space", "preserve")
-	ElementNodeLabel.CreateAttr("y", "0.0")
+	ElementNodeLabel.CreateAttr("y", "4.0")
 	ElementNodeLabel.CreateText(ElementName)
 
 	//NodeLabel
@@ -119,14 +119,15 @@ func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttr
 	ElementNodeLabel2.CreateAttr("height", sHeight)
 	ElementNodeLabel2.CreateAttr("horizontalTextPosition", "center")
 	ElementNodeLabel2.CreateAttr("iconTextGap", "4")
-	ElementNodeLabel2.CreateAttr("modelName", "custom")
+	ElementNodeLabel2.CreateAttr("modelName", "free")
+	ElementNodeLabel2.CreateAttr("modelPosition", "anywhere")
 	ElementNodeLabel2.CreateAttr("textColor", "#000000")
 	ElementNodeLabel2.CreateAttr("verticalTextPosition", "top")
 	ElementNodeLabel2.CreateAttr("visible", "true")
 	ElementNodeLabel2.CreateAttr("width", sWidth)
-	ElementNodeLabel2.CreateAttr("x", "0.0")
+	ElementNodeLabel2.CreateAttr("x", "2.0")
 	ElementNodeLabel2.CreateAttr("xml:space", "preserve")
-	ElementNodeLabel2.CreateAttr("y", "0.0")
+	ElementNodeLabel2.CreateAttr("y", "30.0")
 	ElementNodeLabel2.CreateText(ElementAttribute)
 
 	//y:LabelModel
@@ -136,7 +137,7 @@ func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttr
 	ElementYLabelModel.CreateElement("y:ErdAttributesNodeLabelModel")
 
 	//y:ModelParameter
-	ElementYModelParameter := ElementYGenericNode.CreateElement("y:ModelParameter")
+	ElementYModelParameter := ElementNodeLabel2.CreateElement("y:ModelParameter")
 
 	//y:ErdAttributesNodeLabelModelParameter
 	ElementYModelParameter.CreateElement("y:ErdAttributesNodeLabelModelParameter")
@@ -645,11 +646,12 @@ func findWidth_Entity(ElementName string) int {
 // findHeight_Entity - возвращает число - высоту элемента
 func findHeight_Entity(ElementName string) int {
 
-	Otvet := 10 + FONT_SIZE_ENTITY*3
+	var Otvet int
+	Otvet = 12 + FONT_SIZE_ENTITY*3
 
 	RowsTotal := countLines(ElementName)
 
-	Otvet = Otvet + (RowsTotal-1)*FONT_SIZE_SHAPE*2
+	Otvet = Otvet + int(float64(RowsTotal-1)*math.Round(float64(FONT_SIZE_ENTITY)*float64(1.0)))
 
 	return Otvet
 
@@ -757,9 +759,10 @@ func findHeight_Edge(Label string) int {
 
 // countLines - возвращает количество переводов строки
 func countLines(s string) int {
-	Otvet := 0
+	Otvet := 1
 
-	Otvet = strings.Count(s, "\n")
+	Otvet2 := strings.Count(s, "\n")
+	Otvet = Otvet + Otvet2
 
 	return Otvet
 }
