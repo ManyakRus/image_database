@@ -21,9 +21,8 @@ func StartApp() {
 	postgres_gorm.StartDB()
 
 	FileName := config.Settings.FILENAME_GRAPHML
-	log.Info("directory: ", config.Settings.DIRECTORY_SOURCE)
 	log.Info("file graphml: ", FileName)
-	log.Info("service name: ", config.Settings.SERVICE_NAME)
+	log.Info("postgres host: ", postgres_gorm.Settings.DB_HOST)
 	ok := logic.StartFillAll(FileName)
 	if ok == false {
 		println(constants.TEXT_HELP)

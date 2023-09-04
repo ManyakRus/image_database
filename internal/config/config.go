@@ -12,12 +12,16 @@ var Settings SettingsINI
 // SettingsINI - структура для хранения всех нужных переменных окружения
 type SettingsINI struct {
 	FILENAME_GRAPHML string
+	INCLUDE_TABLES   string
+	EXCLUDE_TABLES   string
 }
 
 // FillSettings загружает переменные окружения в структуру из переменных окружения
 func FillSettings() {
 	Settings = SettingsINI{}
 	Settings.FILENAME_GRAPHML = os.Getenv("FILENAME_GRAPHML")
+	Settings.INCLUDE_TABLES = os.Getenv("INCLUDE_TABLES")
+	Settings.EXCLUDE_TABLES = os.Getenv("EXCLUDE_TABLES")
 
 	if Settings.FILENAME_GRAPHML == "" {
 		Settings.FILENAME_GRAPHML = FILENAME_GRAPHML
@@ -39,7 +43,7 @@ func CurrentDirectory() string {
 // FillFlags - заполняет параметры из командной строки
 func FillFlags() {
 	Args := os.Args[1:]
-	if len(Args) > 3 {
+	if len(Args) > 1 {
 		return
 	}
 

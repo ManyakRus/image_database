@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/ManyakRus/image_database/internal/config"
 	"github.com/ManyakRus/image_database/internal/types"
 	"github.com/ManyakRus/starter/contextmain"
 	"github.com/ManyakRus/starter/log"
@@ -53,6 +54,8 @@ on
 
 where 1=1
 	and c.table_schema='public'
+	--INCLUDE_TABLES
+	--EXCLUDE_TABLES
 
 order by 
 	table_name, 
@@ -63,6 +66,14 @@ order by
 	SCHEMA := strings.Trim(postgres_gorm.Settings.DB_SCHEMA, " ")
 	if SCHEMA != "" {
 		TextSQL = strings.ReplaceAll(TextSQL, "public", SCHEMA)
+	}
+
+	if config.Settings.INCLUDE_TABLES != "" {
+		TextSQL = strings.ReplaceAll(TextSQL, "--INCLUDE_TABLES", "and c.table_name ~* '"+config.Settings.INCLUDE_TABLES+"'")
+	}
+
+	if config.Settings.EXCLUDE_TABLES != "" {
+		TextSQL = strings.ReplaceAll(TextSQL, "--INCLUDE_TABLES", "and c.table_name !~* '"+config.Settings.EXCLUDE_TABLES+"'")
 	}
 
 	//соединение

@@ -24,30 +24,47 @@ var FONT_SIZE_GROUP = 10
 // FONT_SIZE_EDGE - размер шрифта стрелок
 var FONT_SIZE_EDGE = 8
 
-//var doc = etree.NewDocument()
+type ElementInfoStruct struct {
+	Element     *etree.Element
+	Name        string
+	Attribute   string
+	Description string
+	Width       int
+	Height      float64
+	Parent      *ElementInfoStruct
+}
 
 // CreateElement_Entity - создаёт элемент - Entity
-func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttribute string) *etree.Element {
+func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, ElementAttribute string) ElementInfoStruct {
 
 	Width := findWidth_Entity(ElementName + "\n" + ElementAttribute)
 	Height := findHeight_Entity(ElementName + ElementAttribute)
-	sWidth := fmt.Sprintf("%.1f", float32(Width))
-	sHeight := fmt.Sprintf("%.1f", float32(Height))
+	sWidth := fmt.Sprintf("%.1f", float64(Width))
+	sHeight := fmt.Sprintf("%.1f", float64(Height))
 
 	sFontSize := strconv.Itoa(FONT_SIZE_ENTITY)
 
 	//ищем graph
 	var ElementGraph *etree.Element
-	ElementGraph2 := ElementGraph0.SelectElement("graph")
+	ElementGraph2 := ElementInfoMain.Element.SelectElement("graph")
 	if ElementGraph2 != nil {
 		ElementGraph = ElementGraph2
 	} else {
-		ElementGraph = ElementGraph0
+		ElementGraph = ElementInfoMain.Element
 	}
 
 	//node
 	ElementNode := ElementGraph.CreateElement("node")
-	sId := FindId(ElementGraph0, ElementNode)
+
+	var ElementInfoNode ElementInfoStruct
+	ElementInfoNode.Element = ElementNode
+	ElementInfoNode.Name = ElementName
+	ElementInfoNode.Parent = &ElementInfoMain
+	ElementInfoNode.Attribute = ElementAttribute
+	ElementInfoNode.Width = Width
+	ElementInfoNode.Height = Height
+
+	sId := FindId(ElementInfoMain, ElementInfoNode)
 	ElementNode.CreateAttr("id", sId)
 	//ElementNode.CreateAttr("id", "n"+strconv.Itoa(ElementNode.Index()))
 
@@ -151,304 +168,39 @@ func CreateElement_Entity(ElementGraph0 *etree.Element, ElementName, ElementAttr
 	ElementYProperty.CreateAttr("name", "y.view.ShadowNodePainter.SHADOW_PAINTING")
 	ElementYProperty.CreateAttr("value", "true")
 
-	return ElementNode
+	return ElementInfoNode
 }
 
-// CreateElement_Shape - создаёт элемент xgml - прямоугольник
-func CreateElement_Shape(ElementGraph0 *etree.Element, ElementName string) *etree.Element {
+// CreateElement_Edge - создаёт элемент graphml - стрелка
+func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) ElementInfoStruct {
 
-	Width := findWidth_Shape(ElementName)
-	Height := findHeight_Shape(ElementName)
-	sWidth := fmt.Sprintf("%.1f", float32(Width))
-	sHeight := fmt.Sprintf("%.1f", float32(Height))
+	//
+	sx := float32(ElementInfoFrom.Width / 2)
+	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeFrom-1)
+	tx := float32(-ElementInfoTo.Width / 2)
+	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeTo-1)
 
-	sFontSize := strconv.Itoa(FONT_SIZE_SHAPE)
-
-	//ищем graph
-	var ElementGraph *etree.Element
-	ElementGraph2 := ElementGraph0.SelectElement("graph")
-	if ElementGraph2 != nil {
-		ElementGraph = ElementGraph2
-	} else {
-		ElementGraph = ElementGraph0
-	}
+	TextSx := fmt.Sprintf("%.1f", sx)
+	TextSy := fmt.Sprintf("%.1f", sy)
+	TextTx := fmt.Sprintf("%.1f", tx)
+	TextTy := fmt.Sprintf("%.1f", ty)
 
 	//node
-	ElementNode := ElementGraph.CreateElement("node")
-	sId := FindId(ElementGraph0, ElementNode)
-	ElementNode.CreateAttr("id", sId)
-	//ElementNode.CreateAttr("id", "n"+strconv.Itoa(ElementNode.Index()))
+	ElementEdge := ElementInfoGraph.Element.CreateElement("edge")
 
-	//data
-	ElementData := ElementNode.CreateElement("data")
-	ElementData.CreateAttr("key", "d5")
+	var ElementInfoEdge ElementInfoStruct
+	ElementInfoEdge.Element = ElementEdge
+	ElementInfoEdge.Parent = &ElementInfoGraph
+	ElementInfoEdge.Name = label
+	ElementInfoEdge.Description = Description
 
-	//ShapeNode
-	ElementShapeNode := ElementData.CreateElement("y:ShapeNode")
-
-	//YGeometry
-	ElementYGeometry := ElementShapeNode.CreateElement("y:Geometry")
-	ElementYGeometry.CreateAttr("height", sHeight)
-	ElementYGeometry.CreateAttr("width", sWidth)
-	ElementYGeometry.CreateAttr("x", "0.0")
-	ElementYGeometry.CreateAttr("y", "0.0")
-
-	//YFill
-	ElementYFill := ElementShapeNode.CreateElement("y:Fill")
-	ElementYFill.CreateAttr("color", "#FFFFFF")
-	ElementYFill.CreateAttr("transparent", "false")
-
-	//BorderStyle
-	ElementBorderStyle := ElementShapeNode.CreateElement("y:BorderStyle")
-	ElementBorderStyle.CreateAttr("color", "#000000")
-	ElementBorderStyle.CreateAttr("type", "line")
-	ElementBorderStyle.CreateAttr("width", "1.0")
-
-	//NodeLabel
-	ElementNodeLabel := ElementShapeNode.CreateElement("y:NodeLabel")
-	ElementNodeLabel.CreateAttr("alignment", "center")
-	ElementNodeLabel.CreateAttr("autoSizePolicy", "content")
-	ElementNodeLabel.CreateAttr("fontFamily", "Dialog")
-	ElementNodeLabel.CreateAttr("fontSize", sFontSize)
-	ElementNodeLabel.CreateAttr("fontStyle", "plain")
-	ElementNodeLabel.CreateAttr("hasBackgroundColor", "false")
-	ElementNodeLabel.CreateAttr("hasLineColor", "false")
-	ElementNodeLabel.CreateAttr("height", sHeight)
-	ElementNodeLabel.CreateAttr("horizontalTextPosition", "center")
-	ElementNodeLabel.CreateAttr("iconTextGap", "4")
-	ElementNodeLabel.CreateAttr("modelName", "internal")
-	ElementNodeLabel.CreateAttr("modelPosition", "c")
-	ElementNodeLabel.CreateAttr("textColor", "#000000")
-	ElementNodeLabel.CreateAttr("verticalTextPosition", "bottom")
-	ElementNodeLabel.CreateAttr("visible", "true")
-	ElementNodeLabel.CreateAttr("width", sWidth)
-	ElementNodeLabel.CreateAttr("x", "0.0")
-	ElementNodeLabel.CreateAttr("xml:space", "preserve")
-	ElementNodeLabel.CreateAttr("y", "0.0")
-	ElementNodeLabel.CreateText(ElementName)
-
-	//y:Shape
-	ElementYShape := ElementShapeNode.CreateElement("y:Shape")
-	ElementYShape.CreateAttr("type", "rectangle")
-
-	return ElementNode
-}
-
-// CreateElement_Group - создаёт элемент xgml - группа
-func CreateElement_Group(ElementGraph0 *etree.Element, GroupCaption string) *etree.Element {
-
-	Width := findWidth_Group(GroupCaption)
-	Height := findHeight_Group(GroupCaption)
-	sWidth := fmt.Sprintf("%.1f", float32(Width))
-	sHeight := fmt.Sprintf("%.1f", float32(Height))
-
-	//ищем graph
-	var ElementGraph *etree.Element
-	ElementGraph2 := ElementGraph0.SelectElement("graph")
-	if ElementGraph2 != nil {
-		ElementGraph = ElementGraph2
-	} else {
-		ElementGraph = ElementGraph0
-	}
-
-	//node
-	ElementNode := ElementGraph.CreateElement("node")
-	//NodeId := "n" + strconv.Itoa(ElementNode.Index())
-	NodeId := FindId(ElementGraph, ElementNode)
-	ElementNode.CreateAttr("id", NodeId)
-	ElementNode.CreateAttr("yfiles.foldertype", "group")
-
-	//data
-	ElementData := ElementNode.CreateElement("data")
-	ElementData.CreateAttr("key", "d5")
-
-	//YProxyAutoBoundsNode
-	ElementYProxyAutoBoundsNode := ElementData.CreateElement("y:ProxyAutoBoundsNode")
-
-	//YRealizers
-	ElementYRealizers := ElementYProxyAutoBoundsNode.CreateElement("y:Realizers")
-	ElementYRealizers.CreateAttr("active", "0")
-
-	//----------------------- visible ---------------------------------------------
-
-	//YGroupNode
-	ElementYGroupNode := ElementYRealizers.CreateElement("y:GroupNode")
-
-	//YGeometry
-	ElementYGeometry := ElementYGroupNode.CreateElement("y:Geometry")
-	ElementYGeometry.CreateAttr("height", sHeight)
-	ElementYGeometry.CreateAttr("width", sWidth)
-	ElementYGeometry.CreateAttr("x", "0.0")
-	ElementYGeometry.CreateAttr("y", "0.0")
-
-	//YFill
-	ElementYFill := ElementYGroupNode.CreateElement("y:Fill")
-	ElementYFill.CreateAttr("color", "#F5F5F5")
-	ElementYFill.CreateAttr("transparent", "false")
-
-	//YBorderStyle
-	ElementYBorderStyle := ElementYGroupNode.CreateElement("y:BorderStyle")
-	ElementYBorderStyle.CreateAttr("color", "#000000")
-	ElementYBorderStyle.CreateAttr("type", "dashed")
-	ElementYBorderStyle.CreateAttr("width", "1.0")
-
-	//YNodeLabel
-	ElementYNodeLabel := ElementYGroupNode.CreateElement("y:NodeLabel")
-	ElementYNodeLabel.CreateAttr("alignment", "right")
-	ElementYNodeLabel.CreateAttr("autoSizePolicy", "content")
-	ElementYNodeLabel.CreateAttr("backgroundColor", "#EBEBEB")
-	ElementYNodeLabel.CreateAttr("borderDistance", "0.0")
-	ElementYNodeLabel.CreateAttr("fontFamily", "Dialog")
-	ElementYNodeLabel.CreateAttr("fontSize", strconv.Itoa(FONT_SIZE_GROUP))
-	ElementYNodeLabel.CreateAttr("fontStyle", "plain")
-	ElementYNodeLabel.CreateAttr("hasLineColor", "false")
-	ElementYNodeLabel.CreateAttr("height", sHeight)
-	ElementYNodeLabel.CreateAttr("horizontalTextPosition", "center")
-	ElementYNodeLabel.CreateAttr("iconTextGap", "4")
-	ElementYNodeLabel.CreateAttr("modelName", "sandwich")
-	ElementYNodeLabel.CreateAttr("modelPosition", "n")
-	ElementYNodeLabel.CreateAttr("textColor", "#000000")
-	ElementYNodeLabel.CreateAttr("verticalTextPosition", "bottom")
-	ElementYNodeLabel.CreateAttr("width", sWidth)
-	ElementYNodeLabel.CreateAttr("x", "0")
-	ElementYNodeLabel.CreateAttr("xml:space", "preserve")
-	ElementYNodeLabel.CreateAttr("y", "0")
-	ElementYNodeLabel.CreateText(GroupCaption)
-
-	//YShape
-	ElementYShape := ElementYGroupNode.CreateElement("y:Shape")
-	ElementYShape.CreateAttr("type", "roundrectangle")
-
-	//YState
-	ElementYState := ElementYGroupNode.CreateElement("y:State")
-	ElementYState.CreateAttr("closed", "false")
-	ElementYState.CreateAttr("closedHeight", "80.0")
-	ElementYState.CreateAttr("closedWidth", "100.0")
-	ElementYState.CreateAttr("innerGraphDisplayEnabled", "false")
-
-	//YInsets
-	ElementYInsets := ElementYGroupNode.CreateElement("y:Insets")
-	ElementYInsets.CreateAttr("bottom", "15")
-	ElementYInsets.CreateAttr("bottomF", "15.0")
-	ElementYInsets.CreateAttr("left", "15")
-	ElementYInsets.CreateAttr("leftF", "15.0")
-	ElementYInsets.CreateAttr("right", "15")
-	ElementYInsets.CreateAttr("rightF", "15.0")
-	ElementYInsets.CreateAttr("top", "15")
-	ElementYInsets.CreateAttr("topF", "15.0")
-
-	//YBorderInsets
-	ElementYBorderInsets := ElementYGroupNode.CreateElement("y:BorderInsets")
-	ElementYBorderInsets.CreateAttr("bottom", "54")
-	ElementYBorderInsets.CreateAttr("bottomF", "54.0")
-	ElementYBorderInsets.CreateAttr("left", "0")
-	ElementYBorderInsets.CreateAttr("leftF", "0.0")
-	ElementYBorderInsets.CreateAttr("right", "23")
-	ElementYBorderInsets.CreateAttr("rightF", "23.35")
-	ElementYBorderInsets.CreateAttr("top", "0")
-	ElementYBorderInsets.CreateAttr("topF", "0.0")
-
-	//----------------------- not visible ---------------------------------------------
-
-	//YGroupNode
-	ElementYGroupNode2 := ElementYRealizers.CreateElement("y:GroupNode")
-
-	//YGeometry
-	ElementYGeometry2 := ElementYGroupNode2.CreateElement("y:Geometry")
-	ElementYGeometry2.CreateAttr("height", sHeight)
-	ElementYGeometry2.CreateAttr("width", sWidth)
-	ElementYGeometry2.CreateAttr("x", "0.0")
-	ElementYGeometry2.CreateAttr("y", "0.0")
-
-	//YFill
-	ElementYFill2 := ElementYGroupNode2.CreateElement("y:Fill")
-	ElementYFill2.CreateAttr("color", "#F5F5F5")
-	ElementYFill2.CreateAttr("transparent", "false")
-
-	//YBorderStyle
-	ElementYBorderStyle2 := ElementYGroupNode2.CreateElement("y:BorderStyle")
-	ElementYBorderStyle2.CreateAttr("color", "#000000")
-	ElementYBorderStyle2.CreateAttr("type", "dashed")
-	ElementYBorderStyle2.CreateAttr("width", "1.0")
-
-	//YNodeLabel
-	ElementYNodeLabel2 := ElementYGroupNode2.CreateElement("y:NodeLabel")
-	ElementYNodeLabel2.CreateAttr("alignment", "right")
-	ElementYNodeLabel2.CreateAttr("autoSizePolicy", "content")
-	ElementYNodeLabel2.CreateAttr("backgroundColor", "#EBEBEB")
-	ElementYNodeLabel2.CreateAttr("borderDistance", "0.0")
-	ElementYNodeLabel2.CreateAttr("fontFamily", "Dialog")
-	ElementYNodeLabel2.CreateAttr("fontSize", strconv.Itoa(FONT_SIZE_GROUP))
-	ElementYNodeLabel2.CreateAttr("fontStyle", "plain")
-	ElementYNodeLabel2.CreateAttr("hasLineColor", "false")
-	ElementYNodeLabel2.CreateAttr("hasText", "false") //только у 2
-	ElementYNodeLabel2.CreateAttr("height", sHeight)
-	ElementYNodeLabel2.CreateAttr("horizontalTextPosition", "center")
-	ElementYNodeLabel2.CreateAttr("iconTextGap", "4")
-	ElementYNodeLabel2.CreateAttr("modelName", "sandwich")
-	ElementYNodeLabel2.CreateAttr("modelPosition", "n")
-	ElementYNodeLabel2.CreateAttr("textColor", "#000000")
-	ElementYNodeLabel2.CreateAttr("verticalTextPosition", "bottom")
-	ElementYNodeLabel2.CreateAttr("width", sWidth)
-	ElementYNodeLabel2.CreateAttr("x", "0")
-	//ElementYNodeLabel2.CreateAttr("xml:space", "preserve") //только у 2
-	ElementYNodeLabel2.CreateAttr("y", "0")
-	//ElementYNodeLabel2.CreateText(GroupCaption) //только у 2
-
-	//YShape
-	ElementYShape2 := ElementYGroupNode2.CreateElement("y:Shape")
-	ElementYShape2.CreateAttr("type", "roundrectangle")
-
-	//YState
-	ElementYState2 := ElementYGroupNode2.CreateElement("y:State")
-	ElementYState2.CreateAttr("closed", "true")
-	ElementYState2.CreateAttr("closedHeight", "80.0")
-	ElementYState2.CreateAttr("closedWidth", "100.0")
-	ElementYState2.CreateAttr("innerGraphDisplayEnabled", "false")
-
-	//YInsets
-	ElementYInsets2 := ElementYGroupNode2.CreateElement("y:Insets")
-	ElementYInsets2.CreateAttr("bottom", "15")
-	ElementYInsets2.CreateAttr("bottomF", "15.0")
-	ElementYInsets2.CreateAttr("left", "15")
-	ElementYInsets2.CreateAttr("leftF", "15.0")
-	ElementYInsets2.CreateAttr("right", "15")
-	ElementYInsets2.CreateAttr("rightF", "15.0")
-	ElementYInsets2.CreateAttr("top", "15")
-	ElementYInsets2.CreateAttr("topF", "15.0")
-
-	//YBorderInsets
-	ElementYBorderInsets2 := ElementYGroupNode2.CreateElement("y:BorderInsets")
-	ElementYBorderInsets2.CreateAttr("bottom", "54")
-	ElementYBorderInsets2.CreateAttr("bottomF", "54.0")
-	ElementYBorderInsets2.CreateAttr("left", "0")
-	ElementYBorderInsets2.CreateAttr("leftF", "0.0")
-	ElementYBorderInsets2.CreateAttr("right", "23")
-	ElementYBorderInsets2.CreateAttr("rightF", "23.35")
-	ElementYBorderInsets2.CreateAttr("top", "0")
-	ElementYBorderInsets2.CreateAttr("topF", "0.0")
-
-	//----------------------- продолжение ---------------------------------------------
-	//YBorderInsets
-	ElementGraphGraph := ElementNode.CreateElement("graph")
-	ElementGraphGraph.CreateAttr("edgedefault", "directed")
-	ElementGraphGraph.CreateAttr("id", NodeId+":")
-
-	return ElementNode
-}
-
-// CreateElement_Edge - создаёт элемент xgml - стрелка
-func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, label, Description string) *etree.Element {
-
-	//node
-	ElementEdge := ElementGraph.CreateElement("edge")
-	//EdgeId := FindId(ElementGraph, ElementEdge)
+	//EdgeId := FindId(ElementInfoGraph, ElementEdge)
 	//EdgeID := EdgeId
 	EdgeID := "e" + strconv.Itoa(ElementEdge.Index())
 	ElementEdge.CreateAttr("id", EdgeID)
 	//Source := "n" + strconv.Itoa(IndexElementFrom) + "::" + "n" + strconv.Itoa(IndexElementTo)
-	IdFrom := FindId(ElementGraph, ElementFrom)
-	IdTo := FindId(ElementGraph, ElementTo)
+	IdFrom := FindId(ElementInfoGraph, ElementInfoFrom)
+	IdTo := FindId(ElementInfoGraph, ElementInfoTo)
 	ElementEdge.CreateAttr("source", IdFrom)
 	ElementEdge.CreateAttr("target", IdTo)
 
@@ -456,8 +208,8 @@ func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, lab
 	ElementData := ElementEdge.CreateElement("data")
 	ElementData.CreateAttr("key", "d8")
 	ElementData.CreateAttr("xml:space", "preserve")
-	//ElementData.CreateText("<![CDATA[descr]]>")
-	//ElementData.CreateElement("![CDATA[descr]]")
+	//ElementInfoStruct.CreateText("<![CDATA[descr]]>")
+	//ElementInfoStruct.CreateElement("![CDATA[descr]]")
 	ElementData.CreateCData(Description)
 
 	//data2
@@ -469,10 +221,10 @@ func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, lab
 
 	//y:Path
 	ElementYPath := ElementYPolyLineEdge.CreateElement("y:Path")
-	ElementYPath.CreateAttr("sx", "0.0")
-	ElementYPath.CreateAttr("sy", "0.0")
-	ElementYPath.CreateAttr("tx", "0.0")
-	ElementYPath.CreateAttr("ty", "0.0")
+	ElementYPath.CreateAttr("sx", TextSx)
+	ElementYPath.CreateAttr("sy", TextSy)
+	ElementYPath.CreateAttr("tx", TextTx)
+	ElementYPath.CreateAttr("ty", TextTy)
 
 	//y:LineStyle
 	ElementYLineStyle := ElementYPolyLineEdge.CreateElement("y:LineStyle")
@@ -482,8 +234,8 @@ func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, lab
 
 	//y:Arrows
 	ElementYArrows := ElementYPolyLineEdge.CreateElement("y:Arrows")
-	ElementYArrows.CreateAttr("source", "standard")
-	ElementYArrows.CreateAttr("target", "standard")
+	ElementYArrows.CreateAttr("source", "crows_foot_many")
+	ElementYArrows.CreateAttr("target", "none")
 
 	//y:EdgeLabel
 	ElementYEdgeLabel := ElementYPolyLineEdge.CreateElement("y:EdgeLabel")
@@ -501,6 +253,9 @@ func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, lab
 	ElementYEdgeLabel.CreateAttr("modelName", "centered")
 	ElementYEdgeLabel.CreateAttr("modelPosition", "head")
 	ElementYEdgeLabel.CreateAttr("preferredPlacement", "anywhere")
+	//ElementYEdgeLabel.CreateAttr("modelName", "two_pos")
+	//ElementYEdgeLabel.CreateAttr("modelPosition", "head")
+	//ElementYEdgeLabel.CreateAttr("preferredPlacement", "on_edge")
 	ElementYEdgeLabel.CreateAttr("ratio", "0.5")
 	ElementYEdgeLabel.CreateAttr("textColor", "#000000")
 	ElementYEdgeLabel.CreateAttr("verticalTextPosition", "bottom")
@@ -522,113 +277,16 @@ func CreateElement_Edge(ElementGraph, ElementFrom, ElementTo *etree.Element, lab
 	ElementYPreferredPlacementDescriptor.CreateAttr("angleReference", "absolute")
 	ElementYPreferredPlacementDescriptor.CreateAttr("angleRotationOnRightSide", "co")
 	ElementYPreferredPlacementDescriptor.CreateAttr("distance", "-1.0")
-	ElementYPreferredPlacementDescriptor.CreateAttr("frozen", "true")
+	//ElementYPreferredPlacementDescriptor.CreateAttr("frozen", "true")
 	ElementYPreferredPlacementDescriptor.CreateAttr("placement", "anywhere")
-	ElementYPreferredPlacementDescriptor.CreateAttr("side", "anywhere")
+	ElementYPreferredPlacementDescriptor.CreateAttr("side", "on_edge")
 	ElementYPreferredPlacementDescriptor.CreateAttr("sideReference", "relative_to_edge_flow")
 
 	//y:BendStyle
 	ElementYBendStyle := ElementYPolyLineEdge.CreateElement("y:BendStyle")
 	ElementYBendStyle.CreateAttr("smoothed", "false")
 
-	return ElementEdge
-}
-
-// CreateElement_Edge_blue - создаёт элемент xgml - стрелка синяя с заголовком
-func CreateElement_Edge_blue(ElementGraph, ElementFrom, ElementTo *etree.Element, label, Description string) *etree.Element {
-
-	//node
-	ElementEdge := ElementGraph.CreateElement("edge")
-	//EdgeId := FindId(ElementGraph, ElementEdge)
-	//EdgeID := EdgeId
-	EdgeID := "e" + strconv.Itoa(ElementEdge.Index())
-	ElementEdge.CreateAttr("id", EdgeID)
-	//Source := "n" + strconv.Itoa(IndexElementFrom) + "::" + "n" + strconv.Itoa(IndexElementTo)
-	IdFrom := FindId(ElementGraph, ElementFrom)
-	IdTo := FindId(ElementGraph, ElementTo)
-	ElementEdge.CreateAttr("source", IdFrom)
-	ElementEdge.CreateAttr("target", IdTo)
-
-	//data
-	ElementData := ElementEdge.CreateElement("data")
-	ElementData.CreateAttr("key", "d8")
-	ElementData.CreateAttr("xml:space", "preserve")
-	//ElementData.CreateText("<![CDATA[descr]]>")
-	//ElementData.CreateElement("![CDATA[descr]]")
-	ElementData.CreateCData(Description)
-
-	//data2
-	ElementData2 := ElementEdge.CreateElement("data")
-	ElementData2.CreateAttr("key", "d9")
-
-	//y:PolyLineEdge
-	ElementYPolyLineEdge := ElementData2.CreateElement("y:PolyLineEdge")
-
-	//y:Path
-	ElementYPath := ElementYPolyLineEdge.CreateElement("y:Path")
-	ElementYPath.CreateAttr("sx", "0.0")
-	ElementYPath.CreateAttr("sy", "0.0")
-	ElementYPath.CreateAttr("tx", "0.0")
-	ElementYPath.CreateAttr("ty", "0.0")
-
-	//y:LineStyle
-	ElementYLineStyle := ElementYPolyLineEdge.CreateElement("y:LineStyle")
-	ElementYLineStyle.CreateAttr("color", "#0000FF")
-	ElementYLineStyle.CreateAttr("type", "line")
-	ElementYLineStyle.CreateAttr("width", "1.0")
-
-	//y:Arrows
-	ElementYArrows := ElementYPolyLineEdge.CreateElement("y:Arrows")
-	ElementYArrows.CreateAttr("source", "none")
-	ElementYArrows.CreateAttr("target", "standard")
-
-	//y:EdgeLabel
-	ElementYEdgeLabel := ElementYPolyLineEdge.CreateElement("y:EdgeLabel")
-	ElementYEdgeLabel.CreateAttr("alignment", "center")
-	ElementYEdgeLabel.CreateAttr("configuration", "AutoFlippingLabel")
-	ElementYEdgeLabel.CreateAttr("distance", "0.0")
-	ElementYEdgeLabel.CreateAttr("fontFamily", "Dialog")
-	ElementYEdgeLabel.CreateAttr("fontSize", strconv.Itoa(FONT_SIZE_EDGE))
-	ElementYEdgeLabel.CreateAttr("fontStyle", "plain")
-	ElementYEdgeLabel.CreateAttr("hasBackgroundColor", "false")
-	ElementYEdgeLabel.CreateAttr("hasLineColor", "false")
-	ElementYEdgeLabel.CreateAttr("height", "17.96875")
-	ElementYEdgeLabel.CreateAttr("horizontalTextPosition", "center")
-	ElementYEdgeLabel.CreateAttr("iconTextGap", "4")
-	ElementYEdgeLabel.CreateAttr("modelName", "centered")
-	ElementYEdgeLabel.CreateAttr("modelPosition", "head")
-	ElementYEdgeLabel.CreateAttr("preferredPlacement", "anywhere")
-	ElementYEdgeLabel.CreateAttr("ratio", "0.5")
-	ElementYEdgeLabel.CreateAttr("textColor", "#0000FF")
-	ElementYEdgeLabel.CreateAttr("verticalTextPosition", "bottom")
-	ElementYEdgeLabel.CreateAttr("visible", "true")
-	ElementYEdgeLabel.CreateAttr("width", "41.8")
-	ElementYEdgeLabel.CreateAttr("x", "71.5")
-	ElementYEdgeLabel.CreateAttr("xml:space", "preserve")
-	ElementYEdgeLabel.CreateAttr("y", "0.5")
-	ElementYEdgeLabel.CreateAttr("bottomInset", "0")
-	ElementYEdgeLabel.CreateAttr("leftInset", "0")
-	ElementYEdgeLabel.CreateAttr("rightInset", "0")
-	ElementYEdgeLabel.CreateAttr("topInset", "0")
-	ElementYEdgeLabel.CreateText(label)
-
-	//y:PreferredPlacementDescriptor
-	ElementYPreferredPlacementDescriptor := ElementYEdgeLabel.CreateElement("y:PreferredPlacementDescriptor")
-	ElementYPreferredPlacementDescriptor.CreateAttr("angle", "0.0")
-	ElementYPreferredPlacementDescriptor.CreateAttr("angleOffsetOnRightSide", "0")
-	ElementYPreferredPlacementDescriptor.CreateAttr("angleReference", "absolute")
-	ElementYPreferredPlacementDescriptor.CreateAttr("angleRotationOnRightSide", "co")
-	ElementYPreferredPlacementDescriptor.CreateAttr("distance", "-1.0")
-	ElementYPreferredPlacementDescriptor.CreateAttr("frozen", "true")
-	ElementYPreferredPlacementDescriptor.CreateAttr("placement", "anywhere")
-	ElementYPreferredPlacementDescriptor.CreateAttr("side", "anywhere")
-	ElementYPreferredPlacementDescriptor.CreateAttr("sideReference", "relative_to_edge_flow")
-
-	//y:BendStyle
-	ElementYBendStyle := ElementYPolyLineEdge.CreateElement("y:BendStyle")
-	ElementYBendStyle.CreateAttr("smoothed", "false")
-
-	return ElementEdge
+	return ElementInfoEdge
 }
 
 // findWidth_Entity - возвращает число - ширину элемента
@@ -637,21 +295,22 @@ func findWidth_Entity(ElementName string) int {
 
 	LenMax := findMaxLenRow(ElementName)
 	var OtvetF float64
-	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE/2)
+	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE)*float64(0.48)
 	Otvet = int(math.Round(OtvetF))
 
 	return Otvet
 }
 
 // findHeight_Entity - возвращает число - высоту элемента
-func findHeight_Entity(ElementName string) int {
+func findHeight_Entity(ElementName string) float64 {
 
-	var Otvet int
-	Otvet = 12 + FONT_SIZE_ENTITY*3
+	var Otvet float64
+
+	Otvet = float64(12 + FONT_SIZE_ENTITY*3)
 
 	RowsTotal := countLines(ElementName)
 
-	Otvet = Otvet + int(float64(RowsTotal-1)*math.Round(float64(FONT_SIZE_ENTITY)*float64(1.0)))
+	Otvet = float64(Otvet) + (float64(RowsTotal-1) * math.Round(float64(FONT_SIZE_ENTITY)*float64(1.16)))
 
 	return Otvet
 
@@ -774,7 +433,8 @@ func findMaxLenRow(ElementName string) int {
 	Mass := strings.Split(ElementName, "\n")
 
 	for _, Mass1 := range Mass {
-		len1 := len(Mass1)
+		MassRune := []rune(Mass1)
+		len1 := len(MassRune)
 		if len1 > Otvet {
 			Otvet = len1
 		}
@@ -784,12 +444,17 @@ func findMaxLenRow(ElementName string) int {
 }
 
 // CreateDocument - создаёт новый документ .xgml
-func CreateDocument() (*etree.Document, *etree.Element) {
+func CreateDocument() (*etree.Document, ElementInfoStruct) {
 
 	DocXML := etree.NewDocument()
 	DocXML.CreateProcInst("xml", `version="1.0" encoding="UTF-8" standalone="no"`)
 
 	ElementGraphMl := DocXML.CreateElement("graphml")
+
+	var ElementInfoGraphML ElementInfoStruct
+	ElementInfoGraphML.Element = ElementGraphMl
+	ElementInfoGraphML.Parent = nil
+
 	ElementGraphMl.CreateAttr("xmlns", "http://graphml.graphdrawing.org/xmlns")
 	ElementGraphMl.CreateAttr("xmlns:java", "http://www.yworks.com/xml/yfiles-common/1.0/java")
 	ElementGraphMl.CreateAttr("xmlns:sys", "http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0")
@@ -858,26 +523,29 @@ func CreateDocument() (*etree.Document, *etree.Element) {
 	ElementGraph.CreateAttr("edgedefault", "directed")
 	ElementGraph.CreateAttr("id", "G")
 
-	return DocXML, ElementGraph
+	return DocXML, ElementInfoGraphML
 }
 
 // FindId - находит ИД в формате "n1::n1::n1"
-func FindId(ElementGraph0, Element *etree.Element) string {
+func FindId(ElementInfoMain, ElementInfo ElementInfoStruct) string {
 	Otvet := ""
-	if Element == nil {
-		return Otvet
-	}
+	//if Element == nil {
+	//	return Otvet
+	//}
 
 	//if Element == ElementGraph0 {
 	//	return Otvet
 	//}
 
-	if Element.Tag == "node" {
-		Otvet = "n" + strconv.Itoa(Element.Index())
+	if ElementInfo.Element.Tag == "node" {
+		Otvet = "n" + strconv.Itoa(ElementInfo.Element.Index())
 		//return Otvet
 	}
 
-	ParentSID := FindId(ElementGraph0, Element.Parent())
+	ParentSID := ""
+	if ElementInfo.Parent != nil {
+		ParentSID = FindId(ElementInfoMain, *ElementInfo.Parent)
+	}
 	if ParentSID != "" {
 		if Otvet == "" {
 			Otvet = ParentSID
