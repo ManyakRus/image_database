@@ -7,7 +7,7 @@ import (
 	"github.com/ManyakRus/starter/log"
 )
 
-var MassTable []types.Table
+//var MassTable []types.Table
 
 func StartFillAll(FileName string) bool {
 	Otvet := false
