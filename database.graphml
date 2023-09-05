@@ -249,11 +249,15 @@ name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="288.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="364.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">branches</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="364.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">branches</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="364.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 code  int8
 created_at  timestamptz
 deleted_at  timestamptz
@@ -466,11 +470,25 @@ modified_at  timestamptz
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="231.0" width="147.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="497.0" width="147.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="231.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="147.0" x="16.0" xml:space="preserve" y="4.0">connections</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="231.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="147.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="497.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="147.0" x="16.0" xml:space="preserve" y="4.0">connections</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="497.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="147.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 branch_id  int8
 db_name  text
 db_scheme  text
@@ -648,11 +666,21 @@ reason  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="706.0" width="278.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="896.0" width="278.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="706.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="278.0" x="16.0" xml:space="preserve" y="4.0">contracts</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="706.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="278.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="896.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="278.0" x="16.0" xml:space="preserve" y="4.0">contracts</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="896.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="278.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 begin_at  timestamptz
 branch_id  int8
 category_id  int8
@@ -946,11 +974,12 @@ terminate_at  timestamptz
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="269.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="288.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="269.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">courts</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="269.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">courts</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
 city_name  text
 created_at  timestamptz
 deleted_at  timestamptz
@@ -1010,11 +1039,12 @@ short_name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="288.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="307.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">debt_types</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="288.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="307.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">debt_types</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="307.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
 code_nsi  int4
 connection_id  int8
 created_at  timestamptz
@@ -1171,11 +1201,18 @@ type  int4
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="573.0" width="232.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="706.0" width="232.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="573.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="232.0" x="16.0" xml:space="preserve" y="4.0">documents</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="573.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="232.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="706.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="232.0" x="16.0" xml:space="preserve" y="4.0">documents</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="706.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="232.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 analytics  text
 balance  float8
 bill_kind_id  int8
@@ -1220,11 +1257,26 @@ reversal_id  int8
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="440.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="725.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="440.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">employees</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="440.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="725.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">employees</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="725.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 branch_id  int8
 connection_id  int8
 created_at  timestamptz
@@ -1379,11 +1431,16 @@ name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="459.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="554.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="459.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">files</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="459.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="554.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="554.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 branch_id  int8
 created_at  timestamptz
 deleted_at  timestamptz
@@ -1509,11 +1566,12 @@ name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="383.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="402.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="383.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">individuals</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="383.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="402.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">individuals</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="402.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
 birth_date  timestamptz
 connection_id  int8
 created_at  timestamptz
@@ -1847,11 +1905,12 @@ total_debt  float8
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="212.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="231.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="212.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">lawsuit_status_types</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="212.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="231.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">lawsuit_status_types</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="231.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
 code  int4
 created_at  timestamptz
 deleted_at  timestamptz
@@ -1906,11 +1965,16 @@ name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="1295.0" width="293.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="1390.0" width="293.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="1295.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="293.0" x="16.0" xml:space="preserve" y="4.0">lawsuits</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="1295.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="293.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="1390.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="293.0" x="16.0" xml:space="preserve" y="4.0">lawsuits</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="1390.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="293.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 branch_id  int8
 chance  text
 claim_at  timestamptz
@@ -2406,11 +2470,20 @@ name  text
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="782.0" width="247.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="953.0" width="247.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="782.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="247.0" x="16.0" xml:space="preserve" y="4.0">organizations</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="782.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="247.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="953.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="247.0" x="16.0" xml:space="preserve" y="4.0">organizations</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="953.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="247.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
+id  int8
 bankrupt_at  timestamptz
 bookkeeper_name  text
 category_id  int8
@@ -2678,11 +2751,12 @@ sum  float8
       <data key="d4"/>
       <data key="d5">
         <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
-          <y:Geometry height="193.0" width="216.0" x="-270.0" y="-65.0"/>
+          <y:Geometry height="212.0" width="216.0" x="-270.0" y="-65.0"/>
           <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
           <y:BorderStyle color="#000000" type="line" width="1.0"/>
-          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="193.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">table_names</y:NodeLabel>
-          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="193.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="212.0" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="216.0" x="16.0" xml:space="preserve" y="4.0">table_names</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="212.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="216.0" x="2.0" xml:space="preserve" y="30.0">id  int8
+id  int8
 created_at  timestamptz
 deleted_at  timestamptz
 description  text

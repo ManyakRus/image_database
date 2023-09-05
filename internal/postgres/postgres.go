@@ -9,6 +9,7 @@ import (
 	"github.com/ManyakRus/starter/contextmain"
 	"github.com/ManyakRus/starter/log"
 	"github.com/ManyakRus/starter/postgres_gorm"
+	"gorm.io/gorm"
 	"strings"
 	"time"
 )
@@ -19,6 +20,8 @@ type TableColumn struct {
 	ColumnType        string `json:"type_name"   gorm:"column:type_name;default:''"`
 	ColumnIsIdentity  string `json:"is_identity"   gorm:"column:is_identity;default:''"`
 	ColumnDescription string `json:"description"   gorm:"column:description;default:''"`
+	ColumnTableKey    string `json:"table_key"   gorm:"column:table_key;default:''"`
+	ColumnColumnKey   string `json:"column_key"   gorm:"column:column_key;default:''"`
 }
 
 // FillMassTable - возвращает массив MassTable данными из БД
@@ -27,15 +30,40 @@ func FillMassTable() ([]types.Table, error) {
 	MassTable := make([]types.Table, 0)
 
 	TextSQL := `
--- Все таблицы и колонки в схеме public
+
+drop table if exists temp_keys; 
+CREATE TEMPORARY TABLE temp_keys (table_from text,  column_from text, table_to text, column_to text);
+
+------------------------------------------- Все внешние ключи ------------------------------
+insert into temp_keys
+SELECT (select  r.relname from pg_class r where r.oid = c.confrelid) as table_to,
+       a.attname as column_to,
+       (select r.relname from pg_class r where r.oid = c.conrelid) as table_from,
+       UNNEST((select array_agg(attname) from pg_attribute where attrelid = c.conrelid and array[attnum] <@ c.conkey)) as column_from
+       --pg_get_constraintdef(c.oid) contraint_sql
+FROM 
+	pg_constraint c 
+	
+join 
+	pg_attribute a 
+on 
+	c.confrelid=a.attrelid and a.attnum = ANY(confkey)
+	
+WHERE 1=1
+	--and c.confrelid = (select oid from pg_class where relname = 'debt_types')
+	AND c.confrelid!=c.conrelid
+;
+
+------------------------------------------- Все таблицы и колонки ------------------------------
 
 SELECT 
 	c.table_name, 
 	c.column_name,
 	c.udt_name as type_name,
 	c.is_identity as is_identity,
-	pgd.description
-	
+	COALESCE(pgd.description, '') as description,
+	COALESCE(keys.table_to, '') as table_key,
+	COALESCE(keys.column_to, '') as column_key 
 	
 FROM 
 	pg_catalog.pg_statio_all_tables as st
@@ -51,6 +79,13 @@ on
 	pgd.objsubid   = c.ordinal_position
 	and c.table_schema = st.schemaname
 	and c.table_name   = st.relname
+
+
+LEFT JOIN
+	temp_keys as keys
+ON
+	keys.table_from = c.table_name
+	and keys.column_from = c.column_name
 
 where 1=1
 	and c.table_schema='public'
@@ -85,13 +120,31 @@ order by
 	db.WithContext(ctx)
 
 	//запрос
-	tx := db.Raw(TextSQL)
-	err = tx.Error
-	if err != nil {
-		sError := fmt.Sprint("db.Raw() error: ", err)
-		log.Panicln(sError)
-		return MassTable, err
+	//запустим все запросы отдельно
+	var tx *gorm.DB
+	sqlSlice := strings.Split(TextSQL, ";")
+	len1 := len(sqlSlice)
+	for i, TextSQL1 := range sqlSlice {
+		//batch.Queue(TextSQL1)
+		if i == len1-1 {
+			tx = db.Raw(TextSQL1)
+		} else {
+			tx = db.Exec(TextSQL1)
+			//rows.Close()
+		}
+		err = tx.Error
+		if err != nil {
+			log.Panic("DB.Raw() error:", err)
+		}
 	}
+
+	//tx := db.Raw(TextSQL)
+	//err = tx.Error
+	//if err != nil {
+	//	sError := fmt.Sprint("db.Raw() error: ", err)
+	//	log.Panicln(sError)
+	//	return MassTable, err
+	//}
 
 	//ответ в структуру
 	MassTableColumn := make([]TableColumn, 0)
