@@ -5,6 +5,7 @@ import (
 	"github.com/ManyakRus/image_database/internal/types"
 	"github.com/ManyakRus/image_database/pkg/graphml"
 	"github.com/ManyakRus/starter/log"
+	"sort"
 )
 
 //var MassTable []types.Table
@@ -12,13 +13,14 @@ import (
 func StartFillAll(FileName string) bool {
 	Otvet := false
 
-	TableAll, err := postgres.FillMassTable()
+	//заполним MapAll
+	MapAll, err := postgres.FillMapTable()
 	if err != nil {
-		log.Error("FillMassTable() error: ", err)
+		log.Error("FillMapTable() error: ", err)
 		return Otvet
 	}
 
-	if len(TableAll) > 0 {
+	if len(MapAll) > 0 {
 		Otvet = true
 	}
 
@@ -27,11 +29,20 @@ func StartFillAll(FileName string) bool {
 		return Otvet
 	}
 
+	//создадим документ
 	DocXML, ElementInfoGraph := graphml.CreateDocument()
 
-	err = FillEntities(ElementInfoGraph, TableAll)
+	//заполним прямоугольники в документ
+	err = FillEntities(ElementInfoGraph, &MapAll)
 	if err != nil {
 		log.Error("FillEntities() error: ", err)
+		return Otvet
+	}
+
+	//заполним стрелки в документ
+	err = FillEdges(ElementInfoGraph, &MapAll)
+	if err != nil {
+		log.Error("FillEdges() error: ", err)
 		return Otvet
 	}
 
@@ -45,18 +56,69 @@ func StartFillAll(FileName string) bool {
 	return Otvet
 }
 
-func FillEntities(ElementInfoGraph graphml.ElementInfoStruct, TableAll []types.Table) error {
+// FillEntities - заполняет прямоугольники Entities в файл .xml
+func FillEntities(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*types.Table) error {
 	var err error
 
-	for _, table1 := range TableAll {
+	for _, table1 := range *MapAll {
 		TextAttributes := ""
-		for _, column1 := range table1.Columns {
+		MassColumns := MassFromMapColumns(table1.MapColumns)
+		for _, column1 := range MassColumns {
 			if TextAttributes != "" {
 				TextAttributes = TextAttributes + "\n"
 			}
 			TextAttributes = TextAttributes + column1.Name + "  " + column1.Type
 		}
-		graphml.CreateElement_Entity(ElementInfoGraph, table1.Name, TextAttributes)
+		ElementInfo1 := graphml.CreateElement_Entity(ElementInfoGraph, table1.Name, TextAttributes)
+		table1.ElementInfo = ElementInfo1
+	}
+
+	return err
+}
+
+// MassFromMapColumns - возвращает Slice из Map
+func MassFromMapColumns(MapColumns map[string]types.Column) []types.Column {
+	Otvet := make([]types.Column, 0)
+
+	for _, v := range MapColumns {
+		Otvet = append(Otvet, v)
+	}
+
+	sort.Slice(Otvet[:], func(i, j int) bool {
+		return Otvet[i].OrderNumber < Otvet[j].OrderNumber
+	})
+
+	return Otvet
+}
+
+// FillEdges - заполняет стрелки в файл .xml
+func FillEdges(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*types.Table) error {
+	var err error
+
+	MapAll0 := *MapAll
+
+	for _, table1 := range *MapAll {
+		for _, column1 := range table1.MapColumns {
+			if column1.TableKey == "" || column1.ColumnKey == "" {
+				continue
+			}
+			//только если есть внешний ключ
+			//тыблица из ключа
+			TableKey, ok := MapAll0[column1.TableKey]
+			if ok == false {
+				log.Error("Error. Not found table name: ", column1.TableKey)
+			}
+
+			//колонка из ключа
+			ColumnKey, ok := TableKey.MapColumns[column1.ColumnKey]
+			if ok == false {
+				log.Error("Error. Not found column name: ", column1.ColumnKey)
+			}
+
+			//
+			decription := ColumnKey.Name + " - " + column1.Name
+			graphml.CreateElement_Edge(ElementInfoGraph, table1.ElementInfo, TableKey.ElementInfo, "", decription, column1.OrderNumber+1, ColumnKey.OrderNumber+1)
+		}
 	}
 
 	return err

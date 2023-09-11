@@ -24,10 +24,11 @@ type TableColumn struct {
 	ColumnColumnKey   string `json:"column_key"   gorm:"column:column_key;default:''"`
 }
 
-// FillMassTable - возвращает массив MassTable данными из БД
-func FillMassTable() ([]types.Table, error) {
+// FillMapTable - возвращает массив MassTable данными из БД
+func FillMapTable() (map[string]*types.Table, error) {
 	var err error
-	MassTable := make([]types.Table, 0)
+	//MassTable := make([]types.Table, 0)
+	MapTable := make(map[string]*types.Table, 0)
 
 	TextSQL := `
 
@@ -153,7 +154,7 @@ order by
 	if err != nil {
 		sError := fmt.Sprint("Get_error()  error: ", err)
 		log.Panicln(sError)
-		return MassTable, err
+		return MapTable, err
 	}
 
 	//проверка 0 строк
@@ -162,19 +163,28 @@ order by
 		log.Warn(sError)
 		err = errors.New(sError)
 		log.Panicln(sError)
-		return MassTable, err
+		return MapTable, err
 	}
 
-	//заполним MassTable
+	//заполним MapTable
+	MapColumns := make(map[string]types.Column, 0)
+	OrderNumberColumn := 0
+	OrderNumberTable := 0
 	TableName0 := ""
 	Table1 := CreateTable()
 	for _, v := range MassTableColumn {
 		if v.TableName != TableName0 {
+			OrderNumberColumn = 0
+			Table1.MapColumns = MapColumns
+			MapColumns = make(map[string]types.Column, 0)
 			if TableName0 != "" {
-				MassTable = append(MassTable, Table1)
+				//MassTable = append(MassTable, Table1)
+				MapTable[TableName0] = Table1
+				OrderNumberTable++
 			}
 			Table1 = CreateTable()
 			Table1.Name = v.TableName
+			Table1.OrderNumber = OrderNumberTable
 		}
 
 		Column1 := types.Column{}
@@ -184,21 +194,27 @@ order by
 			Column1.Is_identity = true
 		}
 		Column1.Description = v.ColumnDescription
+		Column1.OrderNumber = OrderNumberColumn
+		Column1.TableKey = v.ColumnTableKey
+		Column1.ColumnKey = v.ColumnColumnKey
 
-		Table1.Columns = append(Table1.Columns, Column1)
+		MapColumns[v.ColumnName] = Column1
+		//Table1.Columns = append(Table1.Columns, Column1)
 
+		OrderNumberColumn++
 		TableName0 = v.TableName
 	}
 	if Table1.Name != "" {
-		MassTable = append(MassTable, Table1)
+		Table1.MapColumns = MapColumns
+		MapTable[TableName0] = Table1
 	}
 
-	return MassTable, err
+	return MapTable, err
 }
 
-func CreateTable() types.Table {
-	Otvet := types.Table{}
-	Otvet.Columns = make([]types.Column, 0)
+func CreateTable() *types.Table {
+	Otvet := &types.Table{}
+	Otvet.MapColumns = make(map[string]types.Column, 0)
 
 	return Otvet
 }

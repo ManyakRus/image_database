@@ -11,6 +11,7 @@ require (
 require (
 	filippo.io/edwards25519 v1.0.0 // indirect
 	github.com/ManyakRus/logrus v0.0.0-20230426064230-515895169d22 // indirect
+	github.com/bradfitz/slice v0.0.0-20180809154707-2b758aa73013 // indirect
 	github.com/gorilla/websocket v1.5.0 // indirect
 	github.com/jackc/pgpassfile v1.0.0 // indirect
 	github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a // indirect
@@ -25,6 +26,7 @@ require (
 	go.mau.fi/libsignal v0.1.0 // indirect
 	go.mau.fi/util v0.0.0-20230805171708-199bf3eec776 // indirect
 	go.mau.fi/whatsmeow v0.0.0-20230824151650-6da2abde6b7c // indirect
+	go4.org v0.0.0-20230225012048-214862532bf5 // indirect
 	golang.org/x/crypto v0.12.0 // indirect
 	golang.org/x/mod v0.12.0 // indirect
 	golang.org/x/sys v0.11.0 // indirect

@@ -175,9 +175,9 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) ElementInfoStruct {
 
 	//
-	sx := float32(-ElementInfoFrom.Width / 2)
+	sx := float32(ElementInfoFrom.Width / 2)
 	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeFrom-1)
-	tx := float32(ElementInfoTo.Width / 2)
+	tx := float32(+ElementInfoTo.Width / 2)
 	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeTo-1)
 
 	TextSx := fmt.Sprintf("%.1f", sx)

@@ -11,7 +11,7 @@ func TestFillMassTable(t *testing.T) {
 	postgres_gorm.Connect()
 	defer postgres_gorm.CloseConnection()
 
-	Otvet, err := FillMassTable()
+	Otvet, err := FillMapTable()
 	if err != nil {
 		t.Error("TestFillMassTable() error: ", err)
 	}
