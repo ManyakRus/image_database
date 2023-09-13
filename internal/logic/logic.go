@@ -61,6 +61,7 @@ func FillEntities(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string
 	var err error
 
 	for _, table1 := range *MapAll {
+		//рисуем таблицу (группу)
 		TextAttributes := ""
 		MassColumns := MassFromMapColumns(table1.MapColumns)
 		for _, column1 := range MassColumns {
@@ -69,8 +70,17 @@ func FillEntities(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string
 			}
 			TextAttributes = TextAttributes + column1.Name + "  " + column1.Type
 		}
-		ElementInfo1 := graphml.CreateElement_Entity(ElementInfoGraph, table1.Name, TextAttributes)
-		table1.ElementInfo = ElementInfo1
+		TextTableAll := table1.Name + "\n" + TextAttributes
+		Width := graphml.FindWidth_Group(TextTableAll)
+		Height := graphml.FindHeight_Group(TextTableAll)
+		ElementInfoTable := graphml.CreateElement_Group(ElementInfoGraph, table1.Name, Width, Height)
+		table1.ElementInfo = ElementInfoTable
+
+		//рисуем колонки
+		for _, column1 := range MassColumns {
+			TextAttribute := column1.Name + "  " + column1.Type
+			graphml.CreateElement_SmallEntity(ElementInfoTable, TextAttribute, Width, column1.OrderNumber)
+		}
 	}
 
 	return err
@@ -119,7 +129,7 @@ func FillEdges(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*t
 
 			//
 			decription := column1.Name + " - " + ColumnKey.Name
-			graphml.CreateElement_Edge(ElementInfoGraph, table1.ElementInfo, TableKey.ElementInfo, "", decription, column1.OrderNumber+1, ColumnKey.OrderNumber+1)
+			graphml.CreateElement_Edge(ElementInfoGraph, table1.ElementInfo, TableKey.ElementInfo, "", decription)
 		}
 	}
 
