@@ -37,11 +37,11 @@ CREATE TEMPORARY TABLE temp_keys (table_from text,  column_from text, table_to t
 
 ------------------------------------------- Все внешние ключи ------------------------------
 insert into temp_keys
-SELECT (select  r.relname from pg_class r where r.oid = c.confrelid) as table_to,
-       a.attname as column_to,
+SELECT 
        (select r.relname from pg_class r where r.oid = c.conrelid) as table_from,
-       UNNEST((select array_agg(attname) from pg_attribute where attrelid = c.conrelid and array[attnum] <@ c.conkey)) as column_from
-       --pg_get_constraintdef(c.oid) contraint_sql
+       UNNEST((select array_agg(attname) from pg_attribute where attrelid = c.conrelid and array[attnum] <@ c.conkey)) as column_from,
+       (select  r.relname from pg_class r where r.oid = c.confrelid) as table_to,
+       a.attname as column_to
 FROM 
 	pg_constraint c 
 	
@@ -109,7 +109,7 @@ order by
 	}
 
 	if config.Settings.EXCLUDE_TABLES != "" {
-		TextSQL = strings.ReplaceAll(TextSQL, "--INCLUDE_TABLES", "and c.table_name !~* '"+config.Settings.EXCLUDE_TABLES+"'")
+		TextSQL = strings.ReplaceAll(TextSQL, "--EXCLUDE_TABLES", "and c.table_name !~* '"+config.Settings.EXCLUDE_TABLES+"'")
 	}
 
 	//соединение
@@ -162,7 +162,7 @@ order by
 		sError := fmt.Sprint("db.Raw() RowsAffected =0 ")
 		log.Warn(sError)
 		err = errors.New(sError)
-		log.Panicln(sError)
+		//log.Panicln(sError)
 		return MapTable, err
 	}
 

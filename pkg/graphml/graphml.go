@@ -175,15 +175,15 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) ElementInfoStruct {
 
 	//
-	sx := float32(ElementInfoFrom.Width / 2)
-	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeFrom-1)
+	sx := float32(-ElementInfoFrom.Width / 2)
+	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeFrom-1)
 	tx := float32(+ElementInfoTo.Width / 2)
-	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.2*float32(NumberAttributeTo-1)
+	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeTo-1)
 
-	TextSx := fmt.Sprintf("%.1f", sx)
-	TextSy := fmt.Sprintf("%.1f", sy)
-	TextTx := fmt.Sprintf("%.1f", tx)
-	TextTy := fmt.Sprintf("%.1f", ty)
+	TextSx := fmt.Sprintf("%.2f", sx)
+	TextSy := fmt.Sprintf("%.2f", sy)
+	TextTx := fmt.Sprintf("%.2f", tx)
+	TextTy := fmt.Sprintf("%.2f", ty)
 
 	//node
 	ElementEdge := ElementInfoGraph.Element.CreateElement("edge")

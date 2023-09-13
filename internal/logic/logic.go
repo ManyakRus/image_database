@@ -106,17 +106,19 @@ func FillEdges(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*t
 			//тыблица из ключа
 			TableKey, ok := MapAll0[column1.TableKey]
 			if ok == false {
-				log.Error("Error. Not found table name: ", column1.TableKey)
+				log.Warn("Error. Not found table name: ", column1.TableKey)
+				continue
 			}
 
 			//колонка из ключа
 			ColumnKey, ok := TableKey.MapColumns[column1.ColumnKey]
 			if ok == false {
-				log.Error("Error. Not found column name: ", column1.ColumnKey)
+				log.Warn("Error. Not found column name: ", column1.ColumnKey)
+				continue
 			}
 
 			//
-			decription := ColumnKey.Name + " - " + column1.Name
+			decription := column1.Name + " - " + ColumnKey.Name
 			graphml.CreateElement_Edge(ElementInfoGraph, table1.ElementInfo, TableKey.ElementInfo, "", decription, column1.OrderNumber+1, ColumnKey.OrderNumber+1)
 		}
 	}
