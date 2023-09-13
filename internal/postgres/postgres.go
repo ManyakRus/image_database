@@ -82,14 +82,23 @@ on
 	and c.table_name   = st.relname
 
 
-LEFT JOIN
+LEFT JOIN --внешние ключи
 	temp_keys as keys
 ON
 	keys.table_from = c.table_name
 	and keys.column_from = c.column_name
 
+	
+LEFT JOIN --вьюхи
+	INFORMATION_SCHEMA.views as v
+ON
+	v.table_schema = 'public'
+	and v.table_name = c.table_name
+
+
 where 1=1
 	and c.table_schema='public'
+	and v.table_name is null
 	--INCLUDE_TABLES
 	--EXCLUDE_TABLES
 

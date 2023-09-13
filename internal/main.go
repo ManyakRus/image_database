@@ -19,6 +19,7 @@ func StartApp() {
 	config.FillFlags()
 
 	postgres_gorm.StartDB()
+	postgres_gorm.GetConnection().Logger.LogMode(2)
 
 	FileName := config.Settings.FILENAME_GRAPHML
 	log.Info("file graphml: ", FileName)

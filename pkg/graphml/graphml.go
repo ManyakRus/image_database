@@ -177,7 +177,7 @@ func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo Element
 	//
 	sx := float32(-ElementInfoFrom.Width / 2)
 	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeFrom-1)
-	tx := float32(+ElementInfoTo.Width / 2)
+	tx := float32(-ElementInfoTo.Width / 2)
 	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeTo-1)
 
 	TextSx := fmt.Sprintf("%.2f", sx)
