@@ -1,7 +1,7 @@
 package types
 
 import (
-	"github.com/ManyakRus/image_database/pkg/graphml"
+	"github.com/beevik/etree"
 )
 
 type Column struct {
@@ -17,10 +17,27 @@ type Column struct {
 type Table struct {
 	Name string `json:"name"   gorm:"column:name;default:''"`
 	//Element     *etree.Element
-	ElementInfo graphml.ElementInfoStruct
+	ElementInfo ElementInfoStruct
 	MapColumns  map[string]Column
 	//Columns []Column
 	OrderNumber int
 }
 
-//var MapTable = make(map[string]Table, 0)
+type NodeStruct struct {
+	Element *etree.Element
+	Name    string
+	X       float64
+	Y       float64
+}
+
+type ElementInfoStruct struct {
+	Element     *etree.Element
+	Name        string
+	Attribute   string
+	Description string
+	Width       float64
+	Height      float64
+	Parent      *ElementInfoStruct
+}
+
+var MapNodeStructOld = make(map[string]NodeStruct, 0)

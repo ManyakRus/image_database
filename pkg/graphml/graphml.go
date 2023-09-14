@@ -2,6 +2,7 @@ package graphml
 
 import (
 	"fmt"
+	"github.com/ManyakRus/image_database/internal/types"
 	"github.com/beevik/etree"
 	_ "github.com/beevik/etree"
 	"math"
@@ -24,18 +25,8 @@ var FONT_SIZE_GROUP = 10
 // FONT_SIZE_EDGE - размер шрифта стрелок
 var FONT_SIZE_EDGE = 8
 
-type ElementInfoStruct struct {
-	Element     *etree.Element
-	Name        string
-	Attribute   string
-	Description string
-	Width       float64
-	Height      float64
-	Parent      *ElementInfoStruct
-}
-
 // CreateElement_Entity - создаёт элемент - Entity
-func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, ElementAttribute string) ElementInfoStruct {
+func CreateElement_Entity(ElementInfoMain types.ElementInfoStruct, ElementName, ElementAttribute string) types.ElementInfoStruct {
 
 	Width := findWidth_Entity(ElementName + "\n" + ElementAttribute)
 	Height := findHeight_Entity(ElementName + ElementAttribute)
@@ -56,7 +47,7 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 	//node
 	ElementNode := ElementGraph.CreateElement("node")
 
-	var ElementInfoNode ElementInfoStruct
+	var ElementInfoNode types.ElementInfoStruct
 	ElementInfoNode.Element = ElementNode
 	ElementInfoNode.Name = ElementName
 	ElementInfoNode.Parent = &ElementInfoMain
@@ -80,12 +71,20 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 	ElementYGenericNode := ElementData2.CreateElement("y:GenericNode")
 	ElementYGenericNode.CreateAttr("configuration", "com.yworks.entityRelationship.big_entity")
 
+	sx := "-270"
+	sy := "-65"
+	NodeStructOld, ok := types.MapNodeStructOld[ElementName]
+	if ok == true {
+		sx = fmt.Sprintf("%f", NodeStructOld.X)
+		sy = fmt.Sprintf("%f", NodeStructOld.Y)
+	}
+
 	//YGeometry
 	ElementYGeometry := ElementYGenericNode.CreateElement("y:Geometry")
 	ElementYGeometry.CreateAttr("height", sHeight)
 	ElementYGeometry.CreateAttr("width", sWidth)
-	ElementYGeometry.CreateAttr("x", "-270.0")
-	ElementYGeometry.CreateAttr("y", "-65.0")
+	ElementYGeometry.CreateAttr("x", sx)
+	ElementYGeometry.CreateAttr("y", sy)
 
 	//YFill
 	ElementYFill := ElementYGenericNode.CreateElement("y:Fill")
@@ -172,12 +171,28 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 }
 
 // CreateElement_Edge - создаёт элемент graphml - стрелка
-func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) ElementInfoStruct {
+func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo types.ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) types.ElementInfoStruct {
+
+	NameFrom := ElementInfoFrom.Name
+	NodeStructFrom, ok_from := types.MapNodeStructOld[NameFrom]
+
+	NameTo := ElementInfoTo.Name
+	NodeStructTo, ok_to := types.MapNodeStructOld[NameTo]
+
+	var sx_koef float32 = 1
+	var tx_koef float32 = 1
+	if ok_to == true && ok_from == true {
+		if NodeStructFrom.X < NodeStructTo.X {
+			sx_koef = -1
+		} else {
+			tx_koef = -1
+		}
+	}
 
 	//
-	sx := float32(-ElementInfoFrom.Width / 2)
+	sx := float32(-ElementInfoFrom.Width/2) * sx_koef
 	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeFrom-1)
-	tx := float32(-ElementInfoTo.Width / 2)
+	tx := float32(-ElementInfoTo.Width/2) * tx_koef
 	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeTo-1)
 
 	TextSx := fmt.Sprintf("%.2f", sx)
@@ -188,7 +203,7 @@ func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo Element
 	//node
 	ElementEdge := ElementInfoGraph.Element.CreateElement("edge")
 
-	var ElementInfoEdge ElementInfoStruct
+	var ElementInfoEdge types.ElementInfoStruct
 	ElementInfoEdge.Element = ElementEdge
 	ElementInfoEdge.Parent = &ElementInfoGraph
 	ElementInfoEdge.Name = label
@@ -290,7 +305,7 @@ func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo Element
 }
 
 // CreateElement_Group - создаёт элемент xgml - группа
-func CreateElement_Group(ElementInfoGraph ElementInfoStruct, GroupCaption string, Width, Height float64) ElementInfoStruct {
+func CreateElement_Group(ElementInfoGraph types.ElementInfoStruct, GroupCaption string, Width, Height float64) types.ElementInfoStruct {
 
 	//Width := FindWidth_Group(GroupCaption)
 	//Height := FindHeight_Group(GroupCaption)
@@ -311,7 +326,7 @@ func CreateElement_Group(ElementInfoGraph ElementInfoStruct, GroupCaption string
 	//node
 	ElementNode := ElementGraph.CreateElement("node")
 
-	var ElementInfoGroup ElementInfoStruct
+	var ElementInfoGroup types.ElementInfoStruct
 	ElementInfoGroup.Element = ElementNode
 	ElementInfoGroup.Parent = &ElementInfoGraph
 	ElementInfoGroup.Name = GroupCaption
@@ -506,7 +521,7 @@ func CreateElement_Group(ElementInfoGraph ElementInfoStruct, GroupCaption string
 }
 
 // CreateElement_SmallEntity - создаёт элемент - Entity
-func CreateElement_SmallEntity(ElementInfoMain ElementInfoStruct, ElementName string, Width float64, AttributeIndex int) ElementInfoStruct {
+func CreateElement_SmallEntity(ElementInfoMain types.ElementInfoStruct, ElementName string, Width float64, AttributeIndex int) types.ElementInfoStruct {
 
 	//Width := findWidth_SmallEntity(ElementName)
 	Height := findHeight_SmallEntity(ElementName)
@@ -528,7 +543,7 @@ func CreateElement_SmallEntity(ElementInfoMain ElementInfoStruct, ElementName st
 	//node
 	ElementNode := ElementGraph.CreateElement("node")
 
-	var ElementInfoNode ElementInfoStruct
+	var ElementInfoNode types.ElementInfoStruct
 	ElementInfoNode.Element = ElementNode
 	ElementInfoNode.Name = ElementName
 	ElementInfoNode.Parent = &ElementInfoMain
@@ -815,14 +830,14 @@ func findMaxLenRow(ElementName string) int {
 }
 
 // CreateDocument - создаёт новый документ .xgml
-func CreateDocument() (*etree.Document, ElementInfoStruct) {
+func CreateDocument() (*etree.Document, types.ElementInfoStruct) {
 
 	DocXML := etree.NewDocument()
 	DocXML.CreateProcInst("xml", `version="1.0" encoding="UTF-8" standalone="no"`)
 
 	ElementGraphMl := DocXML.CreateElement("graphml")
 
-	var ElementInfoGraphML ElementInfoStruct
+	var ElementInfoGraphML types.ElementInfoStruct
 	ElementInfoGraphML.Element = ElementGraphMl
 	ElementInfoGraphML.Parent = nil
 
@@ -898,7 +913,7 @@ func CreateDocument() (*etree.Document, ElementInfoStruct) {
 }
 
 // FindId - находит ИД в формате "n1::n1::n1"
-func FindId(ElementInfoMain, ElementInfo ElementInfoStruct) string {
+func FindId(ElementInfoMain, ElementInfo types.ElementInfoStruct) string {
 	Otvet := ""
 	//if Element == nil {
 	//	return Otvet

@@ -57,7 +57,7 @@ func StartFillAll(FileName string) bool {
 }
 
 // FillEntities - заполняет прямоугольники Entities в файл .xml
-func FillEntities(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*types.Table) error {
+func FillEntities(ElementInfoGraph types.ElementInfoStruct, MapAll *map[string]*types.Table) error {
 	var err error
 
 	for _, table1 := range *MapAll {
@@ -92,7 +92,7 @@ func MassFromMapColumns(MapColumns map[string]types.Column) []types.Column {
 }
 
 // FillEdges - заполняет стрелки в файл .xml
-func FillEdges(ElementInfoGraph graphml.ElementInfoStruct, MapAll *map[string]*types.Table) error {
+func FillEdges(ElementInfoGraph types.ElementInfoStruct, MapAll *map[string]*types.Table) error {
 	var err error
 
 	MapAll0 := *MapAll
