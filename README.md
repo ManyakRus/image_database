@@ -9,6 +9,8 @@ The application can automatically find in database and draw:
 1. All tables
 2. All table columns and types
 3. Arrows of table relationships from column to column (foreign key)
+4. Finds tables in the old existing .graphml file,
+and places the tables at the same X,Y coordinates
 
 The resulting .graphml file in the free yED editor can be:
 1. Export as a .jpg drawing
