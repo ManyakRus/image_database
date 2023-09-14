@@ -49,6 +49,8 @@ Tools - Remove Node Overlaps
 Select from the menu:
 File - Export
 
+![database](https://github.com/ManyakRus/image_database/assets/30662875/d4e57b23-1327-415d-bd84-d06d9a54bf50)
+
 
 Source code in Golang language.
 Tested on Linux Ubuntu
