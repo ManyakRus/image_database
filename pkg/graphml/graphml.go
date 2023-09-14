@@ -10,16 +10,16 @@ import (
 )
 
 // FONT_SIZE_ENTITY - размер шрифта Entity
-var FONT_SIZE_ENTITY = 12
+var FONT_SIZE_ENTITY = 16
 
 // FONT_SIZE_BENDS - размер шрифта стрелки куриная лапка
 var FONT_SIZE_BENDS = 8
 
 // FONT_SIZE_SHAPE - размер шрифта прямоугольника
-var FONT_SIZE_SHAPE = 12
+var FONT_SIZE_SHAPE = 16
 
 // FONT_SIZE_SHAPE - размер шрифта групп
-var FONT_SIZE_GROUP = 18
+var FONT_SIZE_GROUP = 10
 
 // FONT_SIZE_EDGE - размер шрифта стрелок
 var FONT_SIZE_EDGE = 8
@@ -172,13 +172,13 @@ func CreateElement_Entity(ElementInfoMain ElementInfoStruct, ElementName, Elemen
 }
 
 // CreateElement_Edge - создаёт элемент graphml - стрелка
-func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string) ElementInfoStruct {
+func CreateElement_Edge(ElementInfoGraph, ElementInfoFrom, ElementInfoTo ElementInfoStruct, label, Description string, NumberAttributeFrom, NumberAttributeTo int) ElementInfoStruct {
 
 	//
 	sx := float32(-ElementInfoFrom.Width / 2)
-	sy := float32(-ElementInfoFrom.Height/2) + 3 + float32(FONT_SIZE_ENTITY)/2
+	sy := float32(-ElementInfoFrom.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeFrom-1)
 	tx := float32(-ElementInfoTo.Width / 2)
-	ty := float32(-ElementInfoTo.Height/2) + 3 + float32(FONT_SIZE_ENTITY)/2
+	ty := float32(-ElementInfoTo.Height/2) + 40 + float32(FONT_SIZE_ENTITY)*1.1659*float32(NumberAttributeTo-1)
 
 	TextSx := fmt.Sprintf("%.2f", sx)
 	TextSy := fmt.Sprintf("%.2f", sy)
@@ -635,7 +635,7 @@ func CreateElement_SmallEntity(ElementInfoMain ElementInfoStruct, ElementName st
 
 // findWidth_Entity - возвращает число - ширину элемента
 func findWidth_Entity(ElementName string) float64 {
-	Otvet := float64(FONT_SIZE_ENTITY) * 2
+	var Otvet float64 = float64(FONT_SIZE_ENTITY) * 2
 
 	LenMax := findMaxLenRow(ElementName)
 	//var OtvetF float64
@@ -655,33 +655,6 @@ func findHeight_Entity(ElementName string) float64 {
 	RowsTotal := countLines(ElementName)
 
 	Otvet = float64(Otvet) + (float64(RowsTotal-1) * math.Round(float64(FONT_SIZE_ENTITY)*float64(1.16)))
-
-	return Otvet
-
-}
-
-// findWidth_SmallEntity - возвращает число - ширину элемента
-func findWidth_SmallEntity(ElementName string) int {
-	Otvet := FONT_SIZE_ENTITY * 2
-
-	LenMax := findMaxLenRow(ElementName)
-	var OtvetF float64
-	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE)*float64(0.48)
-	Otvet = int(math.Round(OtvetF))
-
-	return Otvet
-}
-
-// findHeight_SmallEntity - возвращает число - высоту элемента
-func findHeight_SmallEntity(ElementName string) float64 {
-
-	var Otvet float64
-
-	Otvet = float64(6 + FONT_SIZE_ENTITY)
-
-	RowsTotal := countLines(ElementName)
-
-	Otvet = float64(Otvet) + (float64(RowsTotal-1) * float64(FONT_SIZE_ENTITY))
 
 	return Otvet
 
@@ -725,40 +698,38 @@ func findWidth_Shape(ElementName string) int {
 }
 
 // findHeight_Shape - возвращает число - высоту элемента
-func findHeight_Shape(ElementName string) float64 {
+func findHeight_Shape(ElementName string) int {
 
-	Otvet := 10 + float64(FONT_SIZE_SHAPE)*3
+	Otvet := 10 + FONT_SIZE_SHAPE*3
 
 	RowsTotal := countLines(ElementName)
 
-	Otvet = Otvet + (float64(RowsTotal)-1)*float64(FONT_SIZE_SHAPE)*2
+	Otvet = Otvet + (RowsTotal-1)*FONT_SIZE_SHAPE*2
 
 	return Otvet
 
 }
 
-// FindWidth_Group - возвращает число - ширину элемента
-func FindWidth_Group(ElementName string) float64 {
-	var Otvet float64 = 10
+// findWidth_Group - возвращает число - ширину элемента
+func findWidth_Group(ElementName string) int {
+	Otvet := 10
 
 	LenMax := findMaxLenRow(ElementName)
-	//var OtvetF float64
-	Otvet = float64(Otvet) + float64(LenMax)*10
-	//Otvet = int(math.Round(OtvetF))
+	var OtvetF float64
+	OtvetF = float64(Otvet) + float64(LenMax)*10
+	Otvet = int(math.Round(OtvetF))
 
 	return Otvet
 }
 
-// FindHeight_Group - возвращает число - высоту элемента
-func FindHeight_Group(ElementName string) float64 {
+// findHeight_Group - возвращает число - высоту элемента
+func findHeight_Group(ElementName string) int {
 
-	var Otvet float64 = 0
+	Otvet := 30
 
-	//RowsTotal := countLines(ElementName)
-	HeightSmallEntity := findHeight_SmallEntity(ElementName)
+	RowsTotal := countLines(ElementName)
 
-	//Otvet = Otvet + float64(RowsTotal-1)*18
-	Otvet = Otvet + HeightSmallEntity
+	Otvet = Otvet + (RowsTotal-1)*18
 
 	return Otvet
 
@@ -784,6 +755,33 @@ func findHeight_Edge(Label string) int {
 	RowsTotal := countLines(Label)
 
 	Otvet = Otvet + (RowsTotal-1)*18
+
+	return Otvet
+
+}
+
+// findWidth_SmallEntity - возвращает число - ширину элемента
+func findWidth_SmallEntity(ElementName string) int {
+	Otvet := FONT_SIZE_ENTITY * 2
+
+	LenMax := findMaxLenRow(ElementName)
+	var OtvetF float64
+	OtvetF = float64(Otvet) + float64(LenMax)*float64(FONT_SIZE_SHAPE)*float64(0.48)
+	Otvet = int(math.Round(OtvetF))
+
+	return Otvet
+}
+
+// findHeight_SmallEntity - возвращает число - высоту элемента
+func findHeight_SmallEntity(ElementName string) float64 {
+
+	var Otvet float64
+
+	Otvet = float64(6 + FONT_SIZE_ENTITY)
+
+	RowsTotal := countLines(ElementName)
+
+	Otvet = float64(Otvet) + (float64(RowsTotal-1) * float64(FONT_SIZE_ENTITY))
 
 	return Otvet
 
