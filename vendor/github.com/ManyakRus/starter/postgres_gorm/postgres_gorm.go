@@ -5,8 +5,10 @@ package postgres_gorm
 import (
 	"context"
 	"errors"
+	"fmt"
 	"github.com/ManyakRus/starter/logger"
-	"github.com/ManyakRus/starter/ping"
+	"github.com/ManyakRus/starter/port_checker"
+	"strings"
 	"time"
 
 	//"github.com/jackc/pgconn"
@@ -59,7 +61,7 @@ func Connect() {
 		FillSettings()
 	}
 
-	ping.Ping(Settings.DB_HOST, Settings.DB_PORT)
+	port_checker.CheckPort(Settings.DB_HOST, Settings.DB_PORT)
 
 	err := Connect_err()
 	if err != nil {
@@ -73,6 +75,14 @@ func Connect() {
 // Connect_err - подключается к базе данных
 func Connect_err() error {
 	var err error
+	err = Connect_WithApplicationName_err("")
+
+	return err
+}
+
+// Connect_WithApplicationName_err - подключается к базе данных, с указанием имени приложения
+func Connect_WithApplicationName_err(ApplicationName string) error {
+	var err error
 
 	if Settings.DB_HOST == "" {
 		FillSettings()
@@ -84,12 +94,19 @@ func Connect_err() error {
 	//defer cancel()
 
 	// get the database connection URL.
-	dsn := GetDSN()
+	dsn := GetDSN(ApplicationName)
 
 	//
 	conf := &gorm.Config{}
-	conn := postgres.Open(dsn)
-	Conn, err = gorm.Open(conn, conf)
+	//conn := postgres.Open(dsn)
+
+	dialect := postgres.New(postgres.Config{
+		DSN:                  dsn,
+		PreferSimpleProtocol: true, //для запуска мультизапросов
+	})
+	Conn, err = gorm.Open(dialect, conf)
+
+	//Conn, err = gorm.Open(conn, conf)
 	Conn.Config.NamingStrategy = schema.NamingStrategy{TablePrefix: Settings.DB_SCHEMA + "."}
 	Conn.Config.Logger = gormlogger.Default.LogMode(gormlogger.Warn)
 
@@ -121,7 +138,7 @@ func IsClosed() bool {
 
 	err = DB.Ping()
 	if err != nil {
-		log.Error("DB.Ping() error: ", err)
+		log.Error("DB.CheckPort() error: ", err)
 		return true
 	}
 	return otvet
@@ -225,7 +242,7 @@ func WaitStop() {
 
 	select {
 	case <-contextmain.GetContext().Done():
-		log.Warn("Context app is canceled.")
+		log.Warn("Context app is canceled. Postgres gorm.")
 	}
 
 	//
@@ -240,6 +257,18 @@ func WaitStop() {
 // StartDB - делает соединение с БД, отключение и др.
 func StartDB() {
 	Connect()
+
+	stopapp.GetWaitGroup_Main().Add(1)
+	go WaitStop()
+
+	stopapp.GetWaitGroup_Main().Add(1)
+	go ping_go()
+
+}
+
+// Start - делает соединение с БД, отключение и др.
+func Start(ApplicationName string) {
+	Connect_WithApplicationName_err(ApplicationName)
 
 	stopapp.GetWaitGroup_Main().Add(1)
 	go WaitStop()
@@ -298,12 +327,15 @@ func FillSettings() {
 }
 
 // GetDSN - возвращает строку соединения к базе данных
-func GetDSN() string {
+func GetDSN(ApplicationName string) string {
+	ApplicationName = strings.ReplaceAll(ApplicationName, " ", "_")
+
 	dsn := "host=" + Settings.DB_HOST + " "
 	dsn += "user=" + Settings.DB_USER + " "
 	dsn += "password=" + Settings.DB_PASSWORD + " "
 	dsn += "dbname=" + Settings.DB_NAME + " "
-	dsn += "port=" + Settings.DB_PORT + " sslmode=disable TimeZone=UTC"
+	dsn += "port=" + Settings.DB_PORT + " sslmode=disable TimeZone=UTC "
+	dsn += "application_name=" + ApplicationName
 
 	return dsn
 }
@@ -317,10 +349,20 @@ func GetConnection() *gorm.DB {
 	return Conn
 }
 
+// GetConnection_WithApplicationName - возвращает соединение к нужной базе данных, с указанием имени приложения
+func GetConnection_WithApplicationName(ApplicationName string) *gorm.DB {
+	if Conn == nil {
+		Connect_WithApplicationName_err(ApplicationName)
+	}
+
+	return Conn
+}
+
 // ping_go - делает пинг каждые 60 секунд, и реконнект
 func ping_go() {
 
 	ticker := time.NewTicker(60 * time.Second)
+	defer ticker.Stop()
 
 	addr := Settings.DB_HOST + ":" + Settings.DB_PORT
 
@@ -332,13 +374,13 @@ loop:
 			log.Warn("Context app is canceled. postgres_gorm.ping")
 			break loop
 		case <-ticker.C:
-			err := ping.Ping_err(Settings.DB_HOST, Settings.DB_PORT)
+			err := port_checker.CheckPort_err(Settings.DB_HOST, Settings.DB_PORT)
 			//log.Debug("ticker, ping err: ", err) //удалить
 			if err != nil {
 				NeedReconnect = true
-				log.Warn("postgres_gorm Ping(", addr, ") error: ", err)
+				log.Warn("postgres_gorm CheckPort(", addr, ") error: ", err)
 			} else if NeedReconnect == true {
-				log.Warn("postgres_gorm Ping(", addr, ") OK. Start Reconnect()")
+				log.Warn("postgres_gorm CheckPort(", addr, ") OK. Start Reconnect()")
 				NeedReconnect = false
 				Connect()
 			}
@@ -346,4 +388,35 @@ loop:
 	}
 
 	stopapp.GetWaitGroup_Main().Done()
+}
+
+// RawMultipleSQL - выполняет текст запроса, отдельно для каждого запроса
+func RawMultipleSQL(db *gorm.DB, TextSQL string) *gorm.DB {
+	var tx *gorm.DB
+	var err error
+	tx = db
+
+	// запустим все запросы отдельно
+	sqlSlice := strings.Split(TextSQL, ";")
+	len1 := len(sqlSlice)
+	for i, v := range sqlSlice {
+		if i == len1-1 {
+			tx = tx.Raw(v)
+			err = tx.Error
+		} else {
+			tx = tx.Exec(v)
+			err = tx.Error
+		}
+		if err != nil {
+			TextError := fmt.Sprint("db.Raw() error: ", err, ", TextSQL: \n", v)
+			err = errors.New(TextError)
+			break
+		}
+	}
+
+	if tx == nil {
+		log.Panic("db.Raw() error: rows =nil")
+	}
+
+	return tx
 }

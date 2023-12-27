@@ -1,14 +1,14 @@
-# github.com/ManyakRus/logrus v0.0.0-20230913114322-14246ee4c48b
+# github.com/ManyakRus/logrus v0.0.0-20231019115155-9e6fede0d792
 ## explicit; go 1.13
 github.com/ManyakRus/logrus
-# github.com/ManyakRus/starter v0.0.0-20230913104819-4ee2118a3638
+# github.com/ManyakRus/starter v0.0.0-20231227074038-f1cc2e5171fa
 ## explicit; go 1.20
-github.com/ManyakRus/starter/config
+github.com/ManyakRus/starter/config_main
 github.com/ManyakRus/starter/contextmain
 github.com/ManyakRus/starter/log
 github.com/ManyakRus/starter/logger
 github.com/ManyakRus/starter/micro
-github.com/ManyakRus/starter/ping
+github.com/ManyakRus/starter/port_checker
 github.com/ManyakRus/starter/postgres_gorm
 github.com/ManyakRus/starter/stopapp
 # github.com/beevik/etree v1.2.0
@@ -17,10 +17,10 @@ github.com/beevik/etree
 # github.com/jackc/pgpassfile v1.0.0
 ## explicit; go 1.12
 github.com/jackc/pgpassfile
-# github.com/jackc/pgservicefile v0.0.0-20221227161230-091c0ba34f0a
+# github.com/jackc/pgservicefile v0.0.0-20231201235250-de7065d80cb9
 ## explicit; go 1.14
 github.com/jackc/pgservicefile
-# github.com/jackc/pgx/v5 v5.4.3
+# github.com/jackc/pgx/v5 v5.5.1
 ## explicit; go 1.19
 github.com/jackc/pgx/v5
 github.com/jackc/pgx/v5/internal/anynil
@@ -33,7 +33,12 @@ github.com/jackc/pgx/v5/pgconn/internal/bgreader
 github.com/jackc/pgx/v5/pgconn/internal/ctxwatch
 github.com/jackc/pgx/v5/pgproto3
 github.com/jackc/pgx/v5/pgtype
+github.com/jackc/pgx/v5/pgxpool
 github.com/jackc/pgx/v5/stdlib
+# github.com/jackc/puddle/v2 v2.2.1
+## explicit; go 1.19
+github.com/jackc/puddle/v2
+github.com/jackc/puddle/v2/internal/genstack
 # github.com/jinzhu/inflection v1.0.0
 ## explicit
 github.com/jinzhu/inflection
@@ -43,16 +48,18 @@ github.com/jinzhu/now
 # github.com/joho/godotenv v1.5.1
 ## explicit; go 1.12
 github.com/joho/godotenv
-# golang.org/x/crypto v0.13.0
-## explicit; go 1.17
+# golang.org/x/crypto v0.17.0
+## explicit; go 1.18
 golang.org/x/crypto/pbkdf2
-# golang.org/x/sys v0.12.0
-## explicit; go 1.17
-golang.org/x/sys/internal/unsafeheader
+# golang.org/x/sync v0.5.0
+## explicit; go 1.18
+golang.org/x/sync/semaphore
+# golang.org/x/sys v0.15.0
+## explicit; go 1.18
 golang.org/x/sys/unix
 golang.org/x/sys/windows
-# golang.org/x/text v0.13.0
-## explicit; go 1.17
+# golang.org/x/text v0.14.0
+## explicit; go 1.18
 golang.org/x/text/cases
 golang.org/x/text/internal
 golang.org/x/text/internal/language
@@ -66,11 +73,11 @@ golang.org/x/text/transform
 golang.org/x/text/unicode/bidi
 golang.org/x/text/unicode/norm
 golang.org/x/text/width
-# gorm.io/driver/postgres v1.5.2
+# gorm.io/driver/postgres v1.5.4
 ## explicit; go 1.18
 gorm.io/driver/postgres
-# gorm.io/gorm v1.25.4
-## explicit; go 1.16
+# gorm.io/gorm v1.25.5
+## explicit; go 1.18
 gorm.io/gorm
 gorm.io/gorm/callbacks
 gorm.io/gorm/clause

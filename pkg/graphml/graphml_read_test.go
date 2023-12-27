@@ -2,7 +2,7 @@ package graphml
 
 import (
 	"github.com/ManyakRus/image_database/internal/config"
-	ConfigMain "github.com/ManyakRus/starter/config"
+	ConfigMain "github.com/ManyakRus/starter/config_main"
 	"github.com/ManyakRus/starter/micro"
 	"testing"
 )

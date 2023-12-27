@@ -5,7 +5,7 @@ import (
 	"github.com/ManyakRus/image_database/internal/constants"
 	"github.com/ManyakRus/image_database/internal/logic"
 	"github.com/ManyakRus/image_database/pkg/graphml"
-	ConfigMain "github.com/ManyakRus/starter/config"
+	ConfigMain "github.com/ManyakRus/starter/config_main"
 	"github.com/ManyakRus/starter/log"
 	"github.com/ManyakRus/starter/postgres_gorm"
 )

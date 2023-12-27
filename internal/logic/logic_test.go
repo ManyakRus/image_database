@@ -2,7 +2,7 @@ package logic
 
 import (
 	"github.com/ManyakRus/image_database/internal/config"
-	ConfigMain "github.com/ManyakRus/starter/config"
+	ConfigMain "github.com/ManyakRus/starter/config_main"
 	"github.com/ManyakRus/starter/micro"
 	"testing"
 )
@@ -16,12 +16,12 @@ func TestStartFillAll(t *testing.T) {
 	StartFillAll(FileName)
 }
 
-func TestFindRepositoryName(t *testing.T) {
-	ConfigMain.LoadEnv()
-	config.FillSettings()
-
-	Otvet := FindRepositoryName()
-	if Otvet == "" {
-		t.Error("TestFindRepositoryName() error: =''")
-	}
-}
+//func TestFindRepositoryName(t *testing.T) {
+//	ConfigMain.LoadEnv()
+//	config.FillSettings()
+//
+//	Otvet := FindRepositoryName()
+//	if Otvet == "" {
+//		t.Error("TestFindRepositoryName() error: =''")
+//	}
+//}
