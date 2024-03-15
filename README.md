@@ -24,7 +24,8 @@ Installation procedure:
 https://www.yworks.com/products/yed/download
 
 2. Compile this repository
-make build
+>make build
+>
 the image_database file will appear in the bin folder
 
 3. make a .env file with filled parameters:
