@@ -15,13 +15,13 @@ import (
 )
 
 type TableColumn struct {
-	TableName         string `json:"table_name"   gorm:"column:table_name;default:''"`
-	ColumnName        string `json:"column_name"   gorm:"column:column_name;default:''"`
-	ColumnType        string `json:"type_name"   gorm:"column:type_name;default:''"`
-	ColumnIsIdentity  string `json:"is_identity"   gorm:"column:is_identity;default:''"`
-	ColumnDescription string `json:"description"   gorm:"column:description;default:''"`
-	ColumnTableKey    string `json:"table_key"   gorm:"column:table_key;default:''"`
-	ColumnColumnKey   string `json:"column_key"   gorm:"column:column_key;default:''"`
+	TableName          string `json:"table_name"   gorm:"column:table_name;default:''"`
+	ColumnName         string `json:"column_name"   gorm:"column:column_name;default:''"`
+	ColumnType         string `json:"type_name"   gorm:"column:type_name;default:''"`
+	ColumnIsPrimaryKey string `json:"is_primary_key"   gorm:"column:is_primary_key;default:''"`
+	ColumnDescription  string `json:"description"   gorm:"column:description;default:''"`
+	ColumnTableKey     string `json:"table_key"   gorm:"column:table_key;default:''"`
+	ColumnColumnKey    string `json:"column_key"   gorm:"column:column_key;default:''"`
 }
 
 // FillMapTable - возвращает массив MassTable данными из БД
@@ -55,13 +55,43 @@ WHERE 1=1
 	AND c.confrelid!=c.conrelid
 ;
 
+------------------------------------------- Все primary keys ------------------------------
+drop table if exists temp_primary_keys; 
+CREATE TEMPORARY TABLE temp_primary_keys (table_name text,  column_name text);
+
+insert into temp_primary_keys
+select 
+    ccu.table_name,
+	(ccu.column_name) as column_name
+       
+from pg_constraint pgc
+         join pg_namespace nsp on nsp.oid = pgc.connamespace
+         join pg_class  cls on pgc.conrelid = cls.oid
+         left join information_schema.constraint_column_usage ccu
+                   on pgc.conname = ccu.constraint_name
+                       and nsp.nspname = ccu.constraint_schema
+WHERE 1=1
+	and ccu.table_schema = 'public'
+	and contype = 'p'
+	
+--GROUP BY
+--	ccu.table_name
+--HAVING sum(1)=1
+;
+
+
 ------------------------------------------- Все таблицы и колонки ------------------------------
 
 SELECT 
 	c.table_name, 
 	c.column_name,
 	c.udt_name as type_name,
-	c.is_identity as is_identity,
+    (SELECT obj_description(oid) FROM pg_class as r WHERE relkind = 'r' and r.oid = st.relid) as table_comment,
+	CASE
+		WHEN tpk.table_name is not null
+		THEN true
+		ELSE false END 
+	    as is_primary_key,
 	COALESCE(pgd.description, '') as description,
 	COALESCE(keys.table_to, '') as table_key,
 	COALESCE(keys.column_to, '') as column_key 
@@ -96,6 +126,13 @@ ON
 	and v.table_name = c.table_name
 
 
+LEFT JOIN
+	temp_primary_keys as tpk
+ON 
+	tpk.table_name = c.table_name
+	and tpk.column_name = c.column_name
+
+
 where 1=1
 	and c.table_schema='public'
 	and v.table_name is null
@@ -104,7 +141,7 @@ where 1=1
 
 order by 
 	table_name, 
-	is_identity desc,
+	is_primary_key desc,
 	column_name
 `
 
@@ -199,8 +236,8 @@ order by
 		Column1 := types.Column{}
 		Column1.Name = v.ColumnName
 		Column1.Type = v.ColumnType
-		if v.ColumnIsIdentity == "YES" {
-			Column1.Is_identity = true
+		if v.ColumnIsPrimaryKey == "true" {
+			Column1.IsPrimaryKey = true
 		}
 		Column1.Description = v.ColumnDescription
 		Column1.OrderNumber = OrderNumberColumn

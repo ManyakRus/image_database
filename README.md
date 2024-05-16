@@ -28,7 +28,7 @@ https://www.yworks.com/products/yed/download
 >
 the image_database file will appear in the bin folder
 
-3. make a .env file with filled parameters:
+3. fill parameters in "settings.txt" (or ".env") file:
 ```
 FILENAME_GRAPHML=
 INCLUDE_TABLES=
@@ -41,7 +41,8 @@ DB_PORT=
 DB_USER=
 DB_PASSWORD=
 ```
-Run image_database file
+Run file:
+>image_database
 
 4. Open the resulting .graphml file in the yEd editor
 (all elements will first be in the center of the screen)

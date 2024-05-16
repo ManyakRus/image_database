@@ -2,6 +2,7 @@
 /cover.out
 /internal/v0/app/.env
 .env
+.env*
 
 /.idea/
 /bin/.env
@@ -13,3 +14,4 @@
 /bin/settings/connections_add.txt
 /database.graphml
 /database.graphml0
+/database_schema.graphml

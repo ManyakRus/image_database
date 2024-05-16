@@ -27,7 +27,7 @@ https://www.yworks.com/products/yed/download
 make build
 в папке bin появится файл image_database
 
-3. сделать файл .env с заполненными параметрами:
+3. заполнить параметры в файл "settings.txt" (или ".env"):
 FILENAME_GRAPHML=
 INCLUDE_TABLES=
 EXCLUDE_TABLES=
@@ -39,7 +39,8 @@ DB_PORT=
 DB_USER=
 DB_PASSWORD=
 
-Запустить файл image_database
+Запустить файл:
+image_database
 
 4. Открыть полученный файл .graphml в редакторе yEd
 (все элементы сначала будут в центре экрана)

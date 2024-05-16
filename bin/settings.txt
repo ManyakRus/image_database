@@ -1,0 +1,10 @@
+FILENAME_GRAPHML=./database_schema.graphml 
+INCLUDE_TABLES=""
+EXCLUDE_TABLES="(ext_|DELETED_)"
+
+DB_HOST=""
+DB_NAME=""
+DB_SCHEME=""
+DB_PORT=""
+DB_USER=""
+DB_PASSWORD=""

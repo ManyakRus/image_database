@@ -15,7 +15,7 @@ func main() {
 }
 
 func StartApp() {
-	ConfigMain.LoadEnv()
+	ConfigMain.LoadENV_or_SettingsTXT()
 	config.FillSettings()
 	config.FillFlags()
 
