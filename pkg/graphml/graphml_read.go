@@ -20,6 +20,7 @@ func ReadFile(Filename string) (*etree.Document, error) {
 	return doc, err
 }
 
+// FindMassElement - возвращает массив элементов типа "node"
 func FindMassElement(doc *etree.Document) []*etree.Element {
 	MassElement := make([]*etree.Element, 0)
 
@@ -31,6 +32,7 @@ func FindMassElement(doc *etree.Document) []*etree.Element {
 	return MassElement
 }
 
+// FindMapNodeStruct - возвращает map из узлов Element, имя, х, у
 func FindMapNodeStruct(MassElement []*etree.Element) map[string]types.NodeStruct {
 	MapNodeStruct := make(map[string]types.NodeStruct, 0)
 	var err error
@@ -104,37 +106,38 @@ func FindMapNodeStruct(MassElement []*etree.Element) map[string]types.NodeStruct
 	return MapNodeStruct
 }
 
-// StartReadFile - читает старый файл в
-func StartReadFile() {
-	//dir := micro.ProgramDir()
-	//Filename := dir + "test" + micro.SeparatorFile() + "test.graphml"
+// StartReadFile - читает и возвращает старый файл .graphml
+func StartReadFile() *etree.Document {
+	var Otvet *etree.Document
+
 	Filename := config.Settings.FILENAME_GRAPHML
 
 	ok, err := micro.FileExists(Filename)
 	if ok == false {
-		return
+		return Otvet
 	}
 
-	doc, err := ReadFile(Filename)
+	Otvet, err = ReadFile(Filename)
 	if err != nil {
 		log.Error("ReadFile() error: ", err)
-		return
+		return Otvet
 	}
-	if doc == nil {
+	if Otvet == nil {
 		log.Error("ReadFile() error: doc =nil")
-		return
+		return Otvet
 	}
 
-	MassElement := FindMassElement(doc)
+	MassElement := FindMassElement(Otvet)
 	if len(MassElement) == 0 {
 		log.Warn("FindMassElement() error: len =0")
-		return
+		return Otvet
 	}
 
 	types.MapNodeStructOld = FindMapNodeStruct(MassElement)
 	if len(types.MapNodeStructOld) == 0 {
 		log.Warn("FindMapNodeStruct() error: len =0")
-		return
+		return Otvet
 	}
 
+	return Otvet
 }

@@ -22,12 +22,13 @@ func StartApp() {
 	postgres_gorm.StartDB()
 	postgres_gorm.GetConnection().Logger.LogMode(1)
 
-	graphml.StartReadFile()
+	doc := graphml.StartReadFile()
+	graphml.ClearElements_from_Document(doc)
 
 	FileName := config.Settings.FILENAME_GRAPHML
 	log.Info("file graphml: ", FileName)
 	log.Info("postgres host: ", postgres_gorm.Settings.DB_HOST)
-	ok := logic.StartFillAll(FileName)
+	ok := logic.StartFillAll(FileName, doc)
 	if ok == false {
 		println(constants.TEXT_HELP)
 	}

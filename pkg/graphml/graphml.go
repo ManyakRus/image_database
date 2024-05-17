@@ -829,6 +829,23 @@ func findMaxLenRow(ElementName string) int {
 	return Otvet
 }
 
+// FindElementInfoGraphML - возвращает элемент "graphml"
+func FindElementInfoGraphML(DocXML *etree.Document) types.ElementInfoStruct {
+	var Otvet types.ElementInfoStruct
+
+	ElementGraphMl := DocXML.FindElement("graphml")
+	if ElementGraphMl == nil {
+		return Otvet
+	}
+
+	ElementGraph := ElementGraphMl.FindElement("graph")
+
+	Otvet.Element = ElementGraph
+	Otvet.Parent = nil
+
+	return Otvet
+}
+
 // CreateDocument - создаёт новый документ .xgml
 func CreateDocument() (*etree.Document, types.ElementInfoStruct) {
 
@@ -941,4 +958,39 @@ func FindId(ElementInfoMain, ElementInfo types.ElementInfoStruct) string {
 	}
 
 	return Otvet
+}
+
+// ClearElements_from_Document - возвращает документ, в котором удалены все элементы типа "node"
+func ClearElements_from_Document(DocXML *etree.Document) *etree.Document {
+	MassElement := make([]*etree.Element, 0)
+	if DocXML == nil {
+		return DocXML
+	}
+
+	ElementGraphMl := DocXML.SelectElement("graphml")
+
+	//удалим все edge, стрелки
+	MassElement = ElementGraphMl.SelectElements("edge")
+	for _, Element1 := range MassElement {
+		ElementGraphMl.RemoveChild(Element1)
+	}
+
+	ElementGraph := ElementGraphMl.SelectElement("graph")
+
+	//удалим все node, прямоугольники
+	MassElement = ElementGraph.SelectElements("node")
+	for _, Element1 := range MassElement {
+		ElementGeneric := Element1.FindElement("data/GenericNode")
+		if ElementGeneric != nil {
+			ElementGraph.RemoveChild(Element1)
+		}
+	}
+
+	//удалим все edge, стрелки
+	MassElement = ElementGraph.SelectElements("edge")
+	for _, Element1 := range MassElement {
+		ElementGraph.RemoveChild(Element1)
+	}
+
+	return DocXML
 }

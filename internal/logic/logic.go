@@ -5,12 +5,13 @@ import (
 	"github.com/ManyakRus/image_database/internal/types"
 	"github.com/ManyakRus/image_database/pkg/graphml"
 	"github.com/ManyakRus/starter/log"
+	"github.com/beevik/etree"
 	"sort"
 )
 
 //var MassTable []types.Table
 
-func StartFillAll(FileName string) bool {
+func StartFillAll(FileName string, DocXML *etree.Document) bool {
 	Otvet := false
 
 	//заполним MapAll
@@ -29,8 +30,15 @@ func StartFillAll(FileName string) bool {
 		return Otvet
 	}
 
-	//создадим документ
-	DocXML, ElementInfoGraph := graphml.CreateDocument()
+	var ElementInfoGraph = types.ElementInfoStruct{}
+
+	if DocXML == nil {
+		//создадим документ
+		DocXML, ElementInfoGraph = graphml.CreateDocument()
+	} else {
+		//используем загруженный докуемент
+		ElementInfoGraph = graphml.FindElementInfoGraphML(DocXML)
+	}
 
 	//заполним прямоугольники в документ
 	err = FillEntities(ElementInfoGraph, &MapAll)
