@@ -1,0 +1,1039 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<graphml xmlns="http://graphml.graphdrawing.org/xmlns" xmlns:java="http://www.yworks.com/xml/yfiles-common/1.0/java" xmlns:sys="http://www.yworks.com/xml/yfiles-common/markup/primitives/2.0" xmlns:x="http://www.yworks.com/xml/yfiles-common/markup/2.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:y="http://www.yworks.com/xml/graphml" xmlns:yed="http://www.yworks.com/xml/yed/3" xsi:schemaLocation="http://graphml.graphdrawing.org/xmlns http://www.yworks.com/xml/schema/graphml/1.1/ygraphml.xsd">
+  <!--Created by yEd 3.23.2-->
+  <key for="port" id="d0" yfiles.type="portgraphics"/>
+  <key for="port" id="d1" yfiles.type="portgeometry"/>
+  <key for="port" id="d2" yfiles.type="portuserdata"/>
+  <key attr.name="url" attr.type="string" for="node" id="d3"/>
+  <key attr.name="description" attr.type="string" for="node" id="d4"/>
+  <key for="node" id="d5" yfiles.type="nodegraphics"/>
+  <key for="graphml" id="d6" yfiles.type="resources"/>
+  <key attr.name="url" attr.type="string" for="edge" id="d7"/>
+  <key attr.name="description" attr.type="string" for="edge" id="d8"/>
+  <key for="edge" id="d9" yfiles.type="edgegraphics"/>
+  <graph edgedefault="directed" id="G">
+    <node id="n0">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="600.9544320770078" y="3350.0686040000005"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="172.3046875" x="21.997656250000034" xml:space="preserve" y="4.000000000000227">employees_hashtags</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.000000000000227">employee_id  int8
+hashtag_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n1">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="288.0" width="277.8" x="1554.932935" y="1009.4244379999999"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="176.1796875" x="50.81015625000009" xml:space="preserve" y="4.0">state_duty_payments</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="264.75" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="275.3984375" x="2.0" xml:space="preserve" y="29.999999999999886">id  int8
+branch_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+document_sum  money
+is_deleted  bool
+modified_at  timestamptz
+number  varchar
+payment_date  date
+state_duty_payment_type_id  int8
+table_name_id  int8
+table_row_id  int8
+used_sum  money
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n2">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="193.0" width="216.3" x="1405.795288" y="3957.44458"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="132.09375" x="42.10312500000009" xml:space="preserve" y="4.0">comment_types</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="171.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="29.999999999999545">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+modified_at  timestamptz
+name  text
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n3">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="801.0" width="277.8" x="1289.6044451463144" y="1998.844177"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="78.7890625" x="99.50546874999998" xml:space="preserve" y="4.0">contracts</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="767.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="274.65625" x="2.0" xml:space="preserve" y="30.0">id  int8
+begin_at  timestamptz
+branch_id  int8
+category_id  int8
+connection_id  int8
+created_at  timestamptz
+curator_claim_id  int8
+curator_contract_id  int8
+curator_legal_id  int8
+curator_payment_id  int8
+curator_tech_audit_id  int8
+days_to_resolve_claim  int4
+deleted_at  timestamptz
+department_id  int8
+description  text
+email  text
+end_at  timestamptz
+error_from_stack_at  timestamptz
+ext_id  int8
+individual_id  int8
+is_belongs_rosatom  bool
+is_deleted  bool
+is_error_from_stack  bool
+is_group  bool
+is_ind_organization  bool
+is_organization  bool
+is_valid_email  bool
+modified_at  timestamptz
+note  text
+number  text
+organization_consignee_id  int8
+organization_customer_id  int8
+organization_payer_id  int8
+parent_id  int8
+post_address  text
+sector_id  int8
+sign_at  timestamptz
+status  text
+terminate_at  timestamptz
+type_id  int8
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n4">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="269.0" width="216.3" x="3334.4670377799775" y="1821.861537621562"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="53.9140625" x="81.19296874999964" xml:space="preserve" y="4.0">courts</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="246.125" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+city_name  text
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+is_group  bool
+modified_at  timestamptz
+name  text
+organization_id  int8
+parent_id  int8
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n5">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="440.0" width="216.3" x="2409.035645" y="2434.099121"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="91.3125" x="62.49375000000009" xml:space="preserve" y="4.0">employees</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="413.75" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+branch_id  int8
+connection_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+email  text
+ext_id  int8
+is_active  bool
+is_deleted  bool
+is_group  bool
+login  text
+modified_at  timestamptz
+name  text
+parent_id  int8
+parent_name  text
+phone  text
+photo  text
+position  text
+second_name  text
+tag  text
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n6">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="212.0" width="216.3" x="3137.1129322926286" y="3494.482177"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="113.2890625" x="51.50546874999998" xml:space="preserve" y="4.0">hashtag_links</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="190.25" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+ext_id  int8
+hashtag_id  int8
+is_deleted  bool
+modified_at  timestamptz
+table_name_id  int8
+table_row_id  int8
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n7">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="581.7544800770079" y="2469.1921390000007"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="101.234375" x="57.53281249999998" xml:space="preserve" y="4.0">lawsuit_files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">file_id  int8
+lawsuit_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n8">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="136.0" width="216.3" x="1405.795288" y="3663.256592"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="85.7734375" x="65.26328125000009" xml:space="preserve" y="4.0">briefcases</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="115.75" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n9">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="581.7544800770079" y="1651.8403020000005"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="158.640625" x="28.829687499999977" xml:space="preserve" y="4.0">briefcases_lawsuits</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">briefcase_id  int8
+lawsuit_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n10">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="250.0" width="308.5" x="2316.835645" y="1441.7753129999999"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="208.5" x="50.0" xml:space="preserve" y="4.0">state_duty_consumptions</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="227.5" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="319.265625" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+lawsuit_id  int8
+modified_at  timestamptz
+state_duty_payments_payment_id  int8
+state_duty_payments_return_id  int8
+state_duty_registry_id  int8
+state_duty_sum  money
+status_id  int8
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n11">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="193.0" width="216.3" x="2594.4226862926284" y="3848.356689"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="76.9921875" x="69.65390625" xml:space="preserve" y="4.0">hashtags</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="171.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+modified_at  timestamptz
+name  text
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n12">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="193.0" width="216.3" x="1616.432935" y="1693.159255"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="163.9140625" x="26.19296875000009" xml:space="preserve" y="4.0">state_duty_statuses</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="171.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int4
+is_deleted  bool
+modified_at  timestamptz
+name  text
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n13">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="581.7544800770079" y="2778.345948"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="166.765625" x="24.767187499999977" xml:space="preserve" y="4.0">briefcases_hashtags</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">briefcase_id  int8
+hashtag_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n14">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="269.0" width="216.3" x="1896.512451" y="3810.356689"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="88.3515625" x="63.97421875000009" xml:space="preserve" y="4.0">comments</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="246.125" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+briefcase_id  int8
+comment_type_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+employee_id  int8
+ext_id  int8
+is_deleted  bool
+message  text
+modified_at  timestamptz
+table_name_id  int8
+table_row_id  int8
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n15">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="605.4345950770079" y="2160.0383310000007"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="119.4921875" x="48.40390624999998" xml:space="preserve" y="4.0">contracts_files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">contract_id  int8
+file_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n16">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="269.0" width="216.3" x="1351.1044451463144" y="3236.0686040000005"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="80.4453125" x="67.92734374999998" xml:space="preserve" y="4.0">file_types</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="246.125" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+can_be_synced  bool
+code  int4
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+mime_type  varchar
+modified_at  timestamptz
+name  text
+require_upload  bool
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n17">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="459.0" width="216.3" x="1744.830444" y="2938.912598"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="36.703125" x="89.79843750000009" xml:space="preserve" y="4.0">files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="432.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+branch_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+employee_id  int8
+ext_id  int8
+extension  text
+file_id  text
+file_name  text
+file_type_id  int8
+full_name  text
+is_deleted  bool
+is_group  bool
+modified_at  timestamptz
+name  text
+parent_id  int8
+size  int8
+table_name_id  int8
+table_row_id  int8
+template_id  int8
+version  int4
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n18">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="1409.0" width="308.5" x="2907.906407922992" y="1542.0415906215621"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="68.8671875" x="119.81640625" xml:space="preserve" y="4.0">lawsuits</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="1363.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="316.7890625" x="2.0" xml:space="preserve" y="30.0">id  int8
+DELETED_debt_sum_on_close  float8
+DELETED_debt_sum_on_create  float8
+DELETED_debt_sum_on_trial  float8
+DELETED_debt_sum_sent_claim  float8
+DELETED_debt_sum_sent_notify  float8
+branch_id  int8
+chance  text
+claim_at  timestamptz
+claim_period_str  text
+claim_type_id  int8
+closed_at  timestamptz
+connection_id  int8
+contract_id  int8
+controlled_at  timestamptz
+court_id  int8
+created_at  timestamptz
+curator_claim_id  int8
+curator_contract_id  int8
+curator_legal_id  int8
+curator_payment_id  int8
+curator_tech_audit_id  int8
+date_from  timestamptz
+date_to  timestamptz
+debt_sum  float8
+debt_sum_all_types  float8
+deleted_at  timestamptz
+description  text
+error_text  text
+ext_id  int8
+invoice_sum  float8
+is_closed  bool
+is_deleted  bool
+is_group  bool
+main_sum  float8
+modified_at  timestamptz
+name  text
+notify_claim_at  timestamptz
+notify_claim_channel  int4
+notify_claim_code  int4
+notify_claim_done  bool
+notify_claim_mailing_code  text
+notify_post_barcode  text
+notify_post_req  text
+notify_pretrial_at  timestamptz
+notify_pretrial_channel  int4
+notify_pretrial_code  int4
+notify_pretrial_done  bool
+notify_pretrial_mailing_code  text
+number  text
+number_claim  text
+number_trial  text
+parent_id  int8
+pay_sum  float8
+penalty  float8
+penny  float8
+percent_317  float8
+percent_395  float8
+pretrial_at  timestamptz
+process_key  text
+process_started_at  timestamptz
+reason_id  int8
+restrict_sum  float8
+stage_at  timestamptz
+stage_id  int8
+state_duty  float8
+status_at  timestamptz
+status_id  int8
+tag  text
+trial_at  timestamptz
+type_id  int8
+unknown_payments  bool
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n19">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="254.7" x="562.5544680770079" y="3087.499635"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="249.203125" x="2.7484375000000227" xml:space="preserve" y="4.0">state_duty_consumptions_files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">consumption_id  int8
+file_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n20">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="193.0" width="216.3" x="1193.761183" y="1369.6197499999998"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="219.921875" x="-1.810937499999909" xml:space="preserve" y="4.0">state_duty_payment_types</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="171.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+modified_at  timestamptz
+name  varchar
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n21">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="421.0" width="231.7" x="566.3544560770079" y="1025.2718210000005"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="174.5" x="28.599999999999966" xml:space="preserve" y="4.0">briefcase_documents</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="395.125" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="239.953125" x="2.0" xml:space="preserve" y="30.0">id  int8
+account_number  text
+code  text
+created_at  timestamptz
+deleted_at  timestamptz
+document_date  timestamptz
+document_number  text
+document_original  text
+document_required_id  int8
+document_status_id  int8
+file_id  int8
+invoice_id  int8
+is_deleted  bool
+is_signed  bool
+lawsuit_id  int8
+modified_at  timestamptz
+name  text
+period  timestamptz
+person_upload_id  int8
+upload_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n22">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="605.4345950770079" y="1905.9393320000004"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="126.4765625" x="44.91171874999998" xml:space="preserve" y="4.0">briefcases_files</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">briefcase_id  int8
+file_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n23">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="155.0" width="216.3" x="1351.1044451463147" y="2922.880616000001"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="202.8984375" x="6.700781250000091" xml:space="preserve" y="4.0">user_roles_memberships</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="134.375" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">employee_id  int8
+user_role_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n24">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="174.0" width="216.3" x="1616.432935" y="1388.6197499999998"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="171.40625" x="22.44687500000009" xml:space="preserve" y="4.0">state_duty_registries</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="153.0" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="29.99999999999997">id  int8
+branch_id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+document_at  date
+is_deleted  bool
+modified_at  timestamptz
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <node id="n25">
+      <data key="d5">
+        <y:GenericNode configuration="com.yworks.entityRelationship.big_entity">
+          <y:Geometry height="193.0" width="216.3" x="1020.6718431463148" y="3005.9406750000007"/>
+          <y:Fill color="#E8EEF7" color2="#B7C9E3" transparent="false"/>
+          <y:BorderStyle color="#000000" type="line" width="1.0"/>
+          <y:NodeLabel alignment="center" autoSizePolicy="content" backgroundColor="#B7C9E3" configuration="com.yworks.entityRelationship.label.name" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasLineColor="false" height="22.625" horizontalTextPosition="center" iconTextGap="4" modelName="internal" modelPosition="t" textColor="#000000" verticalTextPosition="bottom" visible="true" width="85.890625" x="65.20468750000003" xml:space="preserve" y="4.0">user_roles</y:NodeLabel>
+          <y:NodeLabel alignment="left" autoSizePolicy="content" configuration="com.yworks.entityRelationship.label.attributes" fontFamily="Dialog" fontSize="16" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="171.625" horizontalTextPosition="center" iconTextGap="4" modelName="free" modelPosition="anywhere" textColor="#000000" verticalTextPosition="top" visible="true" width="209.28125" x="2.0" xml:space="preserve" y="30.0">id  int8
+created_at  timestamptz
+deleted_at  timestamptz
+description  text
+ext_id  int8
+is_deleted  bool
+modified_at  timestamptz
+name  text
+            </y:NodeLabel>
+          <y:StyleProperties>
+            <y:Property class="java.lang.Boolean" name="y.view.ShadowNodePainter.SHADOW_PAINTING" value="true"/>
+          </y:StyleProperties>
+        </y:GenericNode>
+      </data>
+    </node>
+    <edge id="e0" source="n1" target="n20">
+      <data key="d8" xml:space="preserve"><![CDATA[state_duty_payment_type_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-138.88" sy="63.89" tx="108.16" ty="-56.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-87.69605623437496" xml:space="preserve" y="86.83661326454921">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e1" source="n6" target="n11">
+      <data key="d8" xml:space="preserve"><![CDATA[hashtag_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-108.16" sy="8.62" tx="108.16" ty="-56.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-178.4430305511214" xml:space="preserve" y="130.31463807812497">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e2" source="n3" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_tech_audit_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="138.88" sy="-173.96" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="405.55207632315705" xml:space="preserve" y="115.04173597455338">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e3" source="n3" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_contract_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="138.88" sy="-229.92" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="405.55207632315705" xml:space="preserve" y="143.0209852647863">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e4" source="n3" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_legal_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="138.88" sy="-211.26" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="405.55207632315705" xml:space="preserve" y="133.6912288721428">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e5" source="n3" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_payment_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="138.88" sy="-192.61" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="405.55207632315705" xml:space="preserve" y="124.36648242334832">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e6" source="n10" target="n1">
+      <data key="d8" xml:space="preserve"><![CDATA[state_duty_payments_payment_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="26.93" tx="138.88" ty="-104.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-257.28968460937494" xml:space="preserve" y="-281.4141224456123">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e7" source="n10" target="n24">
+      <data key="d8" xml:space="preserve"><![CDATA[state_duty_registry_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="64.24" tx="108.16" ty="-47.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-257.28968460937494" xml:space="preserve" y="-110.50207902678949">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e8" source="n10" target="n18">
+      <data key="d8" xml:space="preserve"><![CDATA[lawsuit_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="154.24" sy="-10.38" tx="-154.24" ty="-664.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="126.00310653962106" xml:space="preserve" y="3.507514310781062">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e9" source="n10" target="n1">
+      <data key="d8" xml:space="preserve"><![CDATA[state_duty_payments_return_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="45.58" tx="138.88" ty="-104.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-257.28968460937494" xml:space="preserve" y="-290.73773354407376">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e10" source="n10" target="n12">
+      <data key="d8" xml:space="preserve"><![CDATA[status_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="101.54" tx="108.16" ty="-56.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-257.28968460937494" xml:space="preserve" y="23.106909599430992">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e11" source="n14" target="n8">
+      <data key="d8" xml:space="preserve"><![CDATA[briefcase_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-108.16" sy="-75.85" tx="108.16" ty="-28.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-152.45638440624998" xml:space="preserve" y="-92.18745129687477">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e12" source="n14" target="n2">
+      <data key="d8" xml:space="preserve"><![CDATA[comment_type_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-108.16" sy="-57.19" tx="108.16" ty="-56.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-152.45638440624998" xml:space="preserve" y="45.576386453125">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e13" source="n14" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[employee_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="108.16" sy="-1.23" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="132.84372573437486" xml:space="preserve" y="-744.076303984375">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e14" source="n17" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[employee_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="108.16" sy="-96.23" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="208.6847290703122" xml:space="preserve" y="-308.35425768749974">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e15" source="n17" target="n16">
+      <data key="d8" xml:space="preserve"><![CDATA[file_type_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-108.16" sy="-2.96" tx="108.16" ty="-94.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-103.96080249715533" xml:space="preserve" y="45.99546428124995">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e16" source="n18" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_legal_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="-310.07" tx="108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-156.53595596037894" xml:space="preserve" y="259.48748757669">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e17" source="n18" target="n4">
+      <data key="d8" xml:space="preserve"><![CDATA[court_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="154.24" sy="-384.68" tx="-108.16" ty="-94.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="43.753617382734774" xml:space="preserve" y="-9.312508148552297">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e18" source="n18" target="n3">
+      <data key="d8" xml:space="preserve"><![CDATA[contract_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="-421.99" tx="138.88" ty="-360.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-685.4778742465969" xml:space="preserve" y="97.8264790601329">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e19" source="n18" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_tech_audit_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="-272.76" tx="108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-156.53595596037894" xml:space="preserve" y="240.8334279416522">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e20" source="n18" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_contract_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="-328.72" tx="108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-156.53595596037894" xml:space="preserve" y="268.81195129929347">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e21" source="n18" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[curator_payment_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-154.24" sy="-291.41" tx="108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-156.53595596037894" xml:space="preserve" y="250.15801373456816">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e22" source="n23" target="n5">
+      <data key="d8" xml:space="preserve"><![CDATA[employee_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="108.16" sy="-37.5" tx="-108.16" ty="-180.0"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="405.5478038622198" xml:space="preserve" y="-253.70324673437426">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+    <edge id="e23" source="n23" target="n25">
+      <data key="d8" xml:space="preserve"><![CDATA[user_role_id - id]]></data>
+      <data key="d9">
+        <y:PolyLineEdge>
+          <y:Path sx="-108.16" sy="-18.85" tx="108.16" ty="-56.5"/>
+          <y:LineStyle color="#000000" type="line" width="1.0"/>
+          <y:Arrows source="crows_foot_many" target="none"/>
+          <y:EdgeLabel alignment="center" bottomInset="0" configuration="AutoFlippingLabel" distance="0.0" fontFamily="Dialog" fontSize="8" fontStyle="plain" hasBackgroundColor="false" hasLineColor="false" height="18.625" horizontalTextPosition="center" iconTextGap="4" leftInset="0" modelName="centered" modelPosition="center" preferredPlacement="on_edge" ratio="0.5" rightInset="0" textColor="#000000" topInset="0" verticalTextPosition="bottom" visible="true" width="30.515625" x="-72.31415077556039" xml:space="preserve" y="22.892627921875828">
+            <y:PreferredPlacementDescriptor angle="0.0" angleOffsetOnRightSide="0" angleReference="absolute" angleRotationOnRightSide="co" distance="-1.0" placement="anywhere" side="on_edge" sideReference="relative_to_edge_flow"/></y:EdgeLabel>
+          <y:BendStyle smoothed="false"/>
+        </y:PolyLineEdge>
+      </data>
+    </edge>
+  </graph>
+  <data key="d6">
+    <y:Resources/>
+  </data>
+</graphml>
