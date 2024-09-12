@@ -15,7 +15,8 @@ type Column struct {
 }
 
 type Table struct {
-	Name string `json:"name"   gorm:"column:name;default:''"`
+	Name    string `json:"name"   gorm:"column:name;default:''"`
+	Comment string
 	//Element     *etree.Element
 	ElementInfo ElementInfoStruct
 	MapColumns  map[string]Column

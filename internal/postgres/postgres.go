@@ -16,6 +16,7 @@ import (
 
 type TableColumn struct {
 	TableName          string `json:"table_name"   gorm:"column:table_name;default:''"`
+	TableComment       string `json:"table_comment"   gorm:"column:table_comment;default:''"`
 	ColumnName         string `json:"column_name"   gorm:"column:column_name;default:''"`
 	ColumnType         string `json:"type_name"   gorm:"column:type_name;default:''"`
 	ColumnIsPrimaryKey string `json:"is_primary_key"   gorm:"column:is_primary_key;default:''"`
@@ -97,19 +98,20 @@ SELECT
 	COALESCE(keys.column_to, '') as column_key 
 	
 FROM 
-	pg_catalog.pg_statio_all_tables as st
+	information_schema.columns c 
 	
-inner join 
+left join 
+	pg_catalog.pg_statio_all_tables as st
+on 
+	c.table_schema = st.schemaname
+	and c.table_name   = st.relname
+
+	    
+left join 
 	pg_catalog.pg_description pgd 
 on 
 	pgd.objoid = st.relid
-
-right join 
-	information_schema.columns c 
-on 
-	pgd.objsubid   = c.ordinal_position
-	and c.table_schema = st.schemaname
-	and c.table_name   = st.relname
+	and pgd.objsubid   = c.ordinal_position
 
 
 LEFT JOIN --внешние ключи
@@ -230,6 +232,7 @@ order by
 			}
 			Table1 = CreateTable()
 			Table1.Name = v.TableName
+			Table1.Comment = v.TableComment
 			Table1.OrderNumber = OrderNumberTable
 		}
 

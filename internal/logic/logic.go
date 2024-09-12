@@ -77,7 +77,7 @@ func FillEntities(ElementInfoGraph types.ElementInfoStruct, MapAll *map[string]*
 			}
 			TextAttributes = TextAttributes + column1.Name + "  " + column1.Type
 		}
-		ElementInfo1 := graphml.CreateElement_Entity(ElementInfoGraph, table1.Name, TextAttributes)
+		ElementInfo1 := graphml.CreateElement_Entity(ElementInfoGraph, table1.Name, TextAttributes, table1.Comment)
 		table1.ElementInfo = ElementInfo1
 	}
 

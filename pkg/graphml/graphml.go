@@ -26,7 +26,7 @@ var FONT_SIZE_GROUP = 10
 var FONT_SIZE_EDGE = 8
 
 // CreateElement_Entity - создаёт элемент - Entity
-func CreateElement_Entity(ElementInfoMain types.ElementInfoStruct, ElementName, ElementAttribute string) types.ElementInfoStruct {
+func CreateElement_Entity(ElementInfoMain types.ElementInfoStruct, ElementName, ElementAttribute, Description string) types.ElementInfoStruct {
 
 	Width := findWidth_Entity(ElementName + "\n" + ElementAttribute)
 	Height := findHeight_Entity(ElementName + ElementAttribute)
@@ -62,6 +62,7 @@ func CreateElement_Entity(ElementInfoMain types.ElementInfoStruct, ElementName, 
 	//data
 	ElementData := ElementNode.CreateElement("data")
 	ElementData.CreateAttr("key", "d4")
+	ElementData.CreateCData(Description)
 
 	//data
 	ElementData2 := ElementNode.CreateElement("data")
