@@ -6,22 +6,17 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/ManyakRus/starter/constants"
 	"github.com/ManyakRus/starter/logger"
 	"github.com/ManyakRus/starter/port_checker"
 	"strings"
 	"time"
 
-	//"github.com/jackc/pgconn"
-	"os"
-	"sync"
-	//"time"
-
-	//"github.com/jmoiron/sqlx"
-	//_ "github.com/lib/pq"
-
 	"github.com/ManyakRus/starter/contextmain"
 	"github.com/ManyakRus/starter/micro"
 	"github.com/ManyakRus/starter/stopapp"
+	"os"
+	"sync"
 
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
@@ -38,11 +33,11 @@ var log = logger.GetLog()
 // mutexReconnect - защита от многопоточности Reconnect()
 var mutexReconnect = &sync.Mutex{}
 
-// Settings хранит все нужные переменные окружения
-var Settings SettingsINI
-
 // NeedReconnect - флаг необходимости переподключения
 var NeedReconnect bool
+
+// Settings хранит все нужные переменные окружения
+var Settings SettingsINI
 
 // SettingsINI - структура для хранения всех нужных переменных окружения
 type SettingsINI struct {
@@ -54,7 +49,10 @@ type SettingsINI struct {
 	DB_PASSWORD string
 }
 
-// Connect_err - подключается к базе данных
+// NamingStrategy - структура для хранения настроек наименования таблиц
+var NamingStrategy = schema.NamingStrategy{}
+
+// Connect - подключается к базе данных
 func Connect() {
 
 	if Settings.DB_HOST == "" {
@@ -64,11 +62,7 @@ func Connect() {
 	port_checker.CheckPort(Settings.DB_HOST, Settings.DB_PORT)
 
 	err := Connect_err()
-	if err != nil {
-		log.Panicln("POSTGRES gorm Connect() to database host: ", Settings.DB_HOST, ", Error: ", err)
-	} else {
-		log.Info("POSTGRES gorm Connected. host: ", Settings.DB_HOST, ", base name: ", Settings.DB_NAME, ", schema: ", Settings.DB_SCHEMA)
-	}
+	LogInfo_Connected(err)
 
 }
 
@@ -80,6 +74,33 @@ func Connect_err() error {
 	return err
 }
 
+// Connect_WithApplicationName_SingularTableName - подключается к базе данных, с указанием имени приложения, без переименования имени таблиц
+func Connect_WithApplicationName_SingularTableName(ApplicationName string) {
+	err := Connect_WithApplicationName_SingularTableName_err(ApplicationName)
+	if err != nil {
+		log.Panicln("POSTGRES gorm Connect_WithApplicationName_SingularTableName_err() to database host: ", Settings.DB_HOST, ", Error: ", err)
+	} else {
+		log.Info("POSTGRES gorm Connected. host: ", Settings.DB_HOST, ", base name: ", Settings.DB_NAME, ", schema: ", Settings.DB_SCHEMA)
+	}
+}
+
+// Connect_WithApplicationName_SingularTableName_err - подключается к базе данных, с указанием имени приложения, без переименования имени таблиц
+func Connect_WithApplicationName_SingularTableName_err(ApplicationName string) error {
+	SetSingularTableNames(true)
+	err := Connect_WithApplicationName_err(ApplicationName)
+	return err
+}
+
+// Connect_WithApplicationName - подключается к базе данных, с указанием имени приложения
+func Connect_WithApplicationName(ApplicationName string) {
+	err := Connect_WithApplicationName_err(ApplicationName)
+	if err != nil {
+		log.Panicln("POSTGRES gorm Connect_WithApplicationName_err() to database host: ", Settings.DB_HOST, ", Error: ", err)
+	} else {
+		log.Info("POSTGRES gorm Connected. host: ", Settings.DB_HOST, ", base name: ", Settings.DB_NAME, ", schema: ", Settings.DB_SCHEMA)
+	}
+}
+
 // Connect_WithApplicationName_err - подключается к базе данных, с указанием имени приложения
 func Connect_WithApplicationName_err(ApplicationName string) error {
 	var err error
@@ -88,27 +109,29 @@ func Connect_WithApplicationName_err(ApplicationName string) error {
 		FillSettings()
 	}
 
-	//ctxMain := context.Background()
-	//ctxMain := contextmain.GetContext()
-	//ctx, cancel := context.WithTimeout(ctxMain, 5*time.Second)
-	//defer cancel()
+	//
+	if contextmain.GetContext().Err() != nil {
+		return contextmain.GetContext().Err()
+	}
 
-	// get the database connection URL.
+	//get the database connection URL.
 	dsn := GetDSN(ApplicationName)
 
 	//
-	conf := &gorm.Config{}
-	//conn := postgres.Open(dsn)
+	conf := &gorm.Config{
+		Logger: gormlogger.Default.LogMode(gormlogger.Silent),
+	}
+	conf.NamingStrategy = NamingStrategy
 
-	dialect := postgres.New(postgres.Config{
+	//
+	config := postgres.Config{
 		DSN:                  dsn,
 		PreferSimpleProtocol: true, //для запуска мультизапросов
-	})
-	Conn, err = gorm.Open(dialect, conf)
+	}
 
-	//Conn, err = gorm.Open(conn, conf)
-	Conn.Config.NamingStrategy = schema.NamingStrategy{TablePrefix: Settings.DB_SCHEMA + "."}
-	Conn.Config.Logger = gormlogger.Default.LogMode(gormlogger.Warn)
+	//
+	dialect := postgres.New(config)
+	Conn, err = gorm.Open(dialect, conf)
 
 	if err == nil {
 		DB, err := Conn.DB()
@@ -256,7 +279,55 @@ func WaitStop() {
 
 // StartDB - делает соединение с БД, отключение и др.
 func StartDB() {
-	Connect()
+	var err error
+
+	ctx := contextmain.GetContext()
+	WaitGroup := stopapp.GetWaitGroup_Main()
+	err = Start_ctx(&ctx, WaitGroup)
+	LogInfo_Connected(err)
+
+}
+
+// Start_ctx - необходимые процедуры для подключения к серверу БД
+// Свой контекст и WaitGroup нужны для остановки работы сервиса Graceful shutdown
+// Для тех кто пользуется этим репозиторием для старта и останова сервиса можно просто StartDB()
+func Start_ctx(ctx *context.Context, WaitGroup *sync.WaitGroup) error {
+	var err error
+
+	//запомним к себе контекст
+	contextmain.Ctx = ctx
+	if ctx == nil {
+		contextmain.GetContext()
+	}
+
+	//запомним к себе WaitGroup
+	stopapp.SetWaitGroup_Main(WaitGroup)
+	if WaitGroup == nil {
+		stopapp.StartWaitStop()
+	}
+
+	//
+	err = Connect_err()
+	if err != nil {
+		return err
+	}
+
+	stopapp.GetWaitGroup_Main().Add(1)
+	go WaitStop()
+
+	stopapp.GetWaitGroup_Main().Add(1)
+	go ping_go()
+
+	return err
+}
+
+// Start - делает соединение с БД, отключение и др.
+func Start(ApplicationName string) {
+	err := Connect_WithApplicationName_err(ApplicationName)
+	LogInfo_Connected(err)
+	//if err != nil {
+	//	log.Panic("Postgres gorm Start() error: ", err)
+	//}
 
 	stopapp.GetWaitGroup_Main().Add(1)
 	go WaitStop()
@@ -266,15 +337,10 @@ func StartDB() {
 
 }
 
-// Start - делает соединение с БД, отключение и др.
-func Start(ApplicationName string) {
-	Connect_WithApplicationName_err(ApplicationName)
-
-	stopapp.GetWaitGroup_Main().Add(1)
-	go WaitStop()
-
-	stopapp.GetWaitGroup_Main().Add(1)
-	go ping_go()
+// Start_SingularTableName - делает соединение с БД, отключение и др. Без переименования имени таблиц на множественное число
+func Start_SingularTableName(ApplicationName string) {
+	SetSingularTableNames(true)
+	Start(ApplicationName)
 
 }
 
@@ -324,6 +390,8 @@ func FillSettings() {
 	}
 
 	//
+	NamingStrategy.SchemaName(Settings.DB_SCHEMA)
+	NamingStrategy.TablePrefix = Settings.DB_SCHEMA + "."
 }
 
 // GetDSN - возвращает строку соединения к базе данных
@@ -334,7 +402,8 @@ func GetDSN(ApplicationName string) string {
 	dsn += "user=" + Settings.DB_USER + " "
 	dsn += "password=" + Settings.DB_PASSWORD + " "
 	dsn += "dbname=" + Settings.DB_NAME + " "
-	dsn += "port=" + Settings.DB_PORT + " sslmode=disable TimeZone=UTC "
+	dsn += "port=" + Settings.DB_PORT + " "
+	dsn += "sslmode=disable TimeZone=" + constants.TIME_ZONE + " "
 	dsn += "application_name=" + ApplicationName
 
 	return dsn
@@ -352,7 +421,10 @@ func GetConnection() *gorm.DB {
 // GetConnection_WithApplicationName - возвращает соединение к нужной базе данных, с указанием имени приложения
 func GetConnection_WithApplicationName(ApplicationName string) *gorm.DB {
 	if Conn == nil {
-		Connect_WithApplicationName_err(ApplicationName)
+		err := Connect_WithApplicationName_err(ApplicationName)
+		if err != nil {
+			log.Panic("GetConnection_WithApplicationName() error: ", err)
+		}
 	}
 
 	return Conn
@@ -382,7 +454,11 @@ loop:
 			} else if NeedReconnect == true {
 				log.Warn("postgres_gorm CheckPort(", addr, ") OK. Start Reconnect()")
 				NeedReconnect = false
-				Connect()
+				err = Connect_err()
+				if err != nil {
+					NeedReconnect = true
+					log.Error("Connect_err() error: ", err)
+				}
 			}
 		}
 	}
@@ -390,33 +466,171 @@ loop:
 	stopapp.GetWaitGroup_Main().Done()
 }
 
+//// RawMultipleSQL - выполняет текст запроса, отдельно для каждого запроса
+//func RawMultipleSQL(db *gorm.DB, TextSQL string) *gorm.DB {
+//	var tx *gorm.DB
+//	var err error
+//	tx = db
+//
+//	// запустим все запросы отдельно
+//	sqlSlice := strings.Split(TextSQL, ";")
+//	len1 := len(sqlSlice)
+//	for i, v := range sqlSlice {
+//		if i == len1-1 {
+//			tx = tx.Raw(v)
+//			err = tx.Error
+//		} else {
+//			tx = tx.Exec(v)
+//			err = tx.Error
+//		}
+//		if err != nil {
+//			TextError := fmt.Sprint("db.Raw() error: ", err, ", TextSQL: \n", v)
+//			err = errors.New(TextError)
+//			break
+//		}
+//	}
+//
+//	if tx == nil {
+//		log.Panic("db.Raw() error: rows =nil")
+//	}
+//
+//	return tx
+//}
+
 // RawMultipleSQL - выполняет текст запроса, отдельно для каждого запроса
 func RawMultipleSQL(db *gorm.DB, TextSQL string) *gorm.DB {
 	var tx *gorm.DB
 	var err error
 	tx = db
 
-	// запустим все запросы отдельно
-	sqlSlice := strings.Split(TextSQL, ";")
-	len1 := len(sqlSlice)
-	for i, v := range sqlSlice {
-		if i == len1-1 {
-			tx = tx.Raw(v)
-			err = tx.Error
-		} else {
-			tx = tx.Exec(v)
-			err = tx.Error
-		}
+	if tx == nil {
+		log.Error("RawMultipleSQL() error: db =nil")
+		return tx
+	}
+
+	//запустим транзакцию
+	//tx0 := tx.Begin()
+	//defer tx0.Commit()
+
+	//
+	TextSQL1 := ""
+	TextSQL2 := TextSQL
+
+	//запустим все запросы, кроме последнего
+	pos1 := strings.LastIndex(TextSQL, ";")
+	if pos1 > 0 {
+		TextSQL1 = TextSQL[0:pos1]
+		TextSQL2 = TextSQL[pos1:]
+		tx = tx.Exec(TextSQL1)
+		err = tx.Error
 		if err != nil {
-			TextError := fmt.Sprint("db.Raw() error: ", err, ", TextSQL: \n", v)
+			TextError := fmt.Sprint("db.Exec() error: ", err, ", TextSQL: \n", TextSQL1)
 			err = errors.New(TextError)
-			break
+			return tx
 		}
 	}
 
-	if tx == nil {
-		log.Panic("db.Raw() error: rows =nil")
+	//запустим последний запрос, с возвратом результата
+	tx = tx.Raw(TextSQL2)
+	err = tx.Error
+	if err != nil {
+		TextError := fmt.Sprint("db.Raw() error: ", err, ", TextSQL: \n", TextSQL2)
+		err = errors.New(TextError)
+		return tx
 	}
 
 	return tx
+}
+
+// ReplaceSchema - заменяет "public." на Settings.DB_SCHEMA
+func ReplaceSchema(TextSQL string) string {
+	Otvet := TextSQL
+
+	if Settings.DB_SCHEMA == "" {
+		return Otvet
+	}
+
+	Otvet = strings.ReplaceAll(Otvet, "\tpublic.", "\t"+Settings.DB_SCHEMA+".")
+	Otvet = strings.ReplaceAll(Otvet, "\npublic.", "\n"+Settings.DB_SCHEMA+".")
+	Otvet = strings.ReplaceAll(Otvet, " public.", " "+Settings.DB_SCHEMA+".")
+
+	return Otvet
+}
+
+// ReplaceTemporaryTableNamesToUnique - заменяет "public.TableName" на "public.TableName_UUID"
+func ReplaceTemporaryTableNamesToUnique(TextSQL string) string {
+	Otvet := TextSQL
+
+	sUUID := micro.StringIdentifierFromUUID()
+	map1 := make(map[string]int)
+
+	//найдём список всех временных таблиц, и заполним в map1
+	s0 := Otvet
+	for {
+		sFind := "CREATE TEMPORARY TABLE "
+		sFind2 := "create temporary table "
+		pos1 := micro.IndexSubstringMin2(s0, sFind, sFind2)
+		if pos1 < 0 {
+			break
+		}
+		s2 := s0[pos1+len(sFind):]
+		pos2 := micro.IndexSubstringMin2(s2, " ", "\n")
+		if pos2 <= 0 {
+			break
+		}
+		name1 := s0[pos1+len(sFind) : pos1+len(sFind)+pos2]
+		if name1 == "" {
+			break
+		}
+
+		s0 = s0[pos1+len(sFind)+pos2:]
+		map1[name1] = len(name1)
+	}
+
+	//заменим все временные таблицы на уникальные
+	MassNames := micro.SortMapStringInt_Desc(map1)
+	for _, v := range MassNames {
+		sFirst := " "
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+" ", " "+v+"_"+sUUID+" ")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\n", " "+v+"_"+sUUID+"\n")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\t", " "+v+"_"+sUUID+"\t")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+";", " "+v+"_"+sUUID+";")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"(", " "+v+"_"+sUUID+"(")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+")", " "+v+"_"+sUUID+")")
+
+		sFirst = "\t"
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+" ", " "+v+"_"+sUUID+" ")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\n", " "+v+"_"+sUUID+"\n")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\t", " "+v+"_"+sUUID+"\t")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+";", " "+v+"_"+sUUID+";")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"(", " "+v+"_"+sUUID+"(")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+")", " "+v+"_"+sUUID+")")
+
+		sFirst = "\n"
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+" ", " "+v+"_"+sUUID+" ")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\n", " "+v+"_"+sUUID+"\n")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"\t", " "+v+"_"+sUUID+"\t")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+";", " "+v+"_"+sUUID+";")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+"(", " "+v+"_"+sUUID+"(")
+		Otvet = strings.ReplaceAll(Otvet, sFirst+v+")", " "+v+"_"+sUUID+")")
+
+	}
+
+	return Otvet
+}
+
+// SetSingularTableNames - меняет настройку "SingularTable" - надо ли НЕ переименовывать имя таблиц во вножественное число
+// true = не переименовывать
+func SetSingularTableNames(IsSingular bool) {
+	NamingStrategy.SingularTable = IsSingular
+}
+
+// LogInfo_Connected - выводит сообщение в Лог, или паника при ошибке
+func LogInfo_Connected(err error) {
+	if err != nil {
+		log.Panicln("POSTGRES gorm Connect() to database host: ", Settings.DB_HOST, ", Error: ", err)
+	} else {
+		log.Info("POSTGRES gorm Connected. host: ", Settings.DB_HOST, ", base name: ", Settings.DB_NAME, ", schema: ", Settings.DB_SCHEMA)
+	}
+
 }

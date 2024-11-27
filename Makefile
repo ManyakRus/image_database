@@ -14,7 +14,7 @@ run:
 mod:
 	clear
 	go get -u ./...
-	go mod tidy -compat=1.18
+	go mod tidy -compat=1.22
 	go mod vendor
 	go fmt ./...
 build:
@@ -54,3 +54,5 @@ lines:
 	go_lines_count ./ ./docs/lines_count.txt 10
 licenses:
 	golicense -out-xlsx=./docs/licenses.xlsx $(FILEAPP)
+gocyclo:
+	golangci-lint run ./... --disable-all -E gocyclo -v

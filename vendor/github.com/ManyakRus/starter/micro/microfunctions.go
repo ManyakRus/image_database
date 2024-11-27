@@ -3,12 +3,18 @@
 package micro
 
 import (
+	"bytes"
 	"context"
+	"encoding/gob"
 	"errors"
 	"fmt"
+	"github.com/google/uuid"
+	"golang.org/x/exp/constraints"
 	"hash/fnv"
+	"os/exec"
 	"reflect"
 	"runtime"
+	"sort"
 	"strconv"
 	"strings"
 	"unicode"
@@ -85,6 +91,17 @@ func Sleep(ms int) {
 // Pause - приостановка работы программы на нужное число миллисекунд
 func Pause(ms int) {
 	Sleep(ms)
+}
+
+// Pause_ctx - приостановка работы программы на нужное число миллисекунд, с учётом глобального контекста
+func Pause_ctx(ctx context.Context, ms int) {
+
+	Duration := time.Duration(ms) * time.Millisecond
+
+	select {
+	case <-ctx.Done():
+	case <-time.After(Duration):
+	}
 }
 
 // FindDirUp - возвращает строку с именем каталога на уровень выше
@@ -179,7 +196,7 @@ func LastWord(StringFrom string) string {
 	}
 
 	r := []rune(StringFrom)
-	for f := len(r); f >= 0; f-- {
+	for f := len(r); f > 0; f-- {
 		r1 := r[f-1]
 		if r1 == '_' {
 		} else if unicode.IsLetter(r1) == false && unicode.IsDigit(r1) == false {
@@ -558,6 +575,15 @@ func StringDate(t time.Time) string {
 	return Otvet
 }
 
+// StringDateTime - возвращает строку дата и время, без миллисекунд
+func StringDateTime(t time.Time) string {
+	Otvet := ""
+
+	Otvet = t.Format("02.01.2006 15:04:05")
+
+	return Otvet
+}
+
 // ProgramDir_bin - возвращает каталог "bin" или каталог программы
 func ProgramDir_bin() string {
 	Otvet := ""
@@ -801,4 +827,450 @@ func Int64FromString(s string) (int64, error) {
 	Otvet, err = strconv.ParseInt(s, 10, 64)
 
 	return Otvet, err
+}
+
+// FindLastPos - возвращает позицию последнего вхождения
+func FindLastPos(s, TextFind string) int {
+	Otvet := strings.LastIndex(s, TextFind)
+	return Otvet
+}
+
+// StringFloat64_Dimension2 - возвращает строку с 2 знака после запятой
+func StringFloat64_Dimension2(f float64) string {
+	Otvet := fmt.Sprintf("%.2f", f)
+
+	return Otvet
+}
+
+// StringFloat32_Dimension2 - возвращает строку с 2 знака после запятой
+func StringFloat32_Dimension2(f float32) string {
+	Otvet := fmt.Sprintf("%.2f", f)
+
+	return Otvet
+}
+
+// ShowTimePassed - показывает время прошедшее с момента старта
+// запускать:
+// defer micro.ShowTimePassed(time.Now())
+func ShowTimePassed(StartAt time.Time) {
+	fmt.Printf("Time passed: %s\n", time.Since(StartAt))
+}
+
+// ShowTimePassedSeconds - показывает время секунд прошедшее с момента старта
+// запускать:
+// defer micro.ShowTimePassedSeconds(time.Now())
+func ShowTimePassedSeconds(StartAt time.Time) {
+	fmt.Printf("Time passed: %s\n", time.Since(StartAt).Round(time.Second))
+}
+
+// ShowTimePassedMilliSeconds - показывает время миллисекунд прошедшее с момента старта
+// запускать:
+// defer micro.ShowTimePassedMilliSeconds(time.Now())
+func ShowTimePassedMilliSeconds(StartAt time.Time) {
+	fmt.Printf("Time passed: %s\n", time.Since(StartAt).Round(time.Millisecond))
+}
+
+// StructDeepCopy - копирует структуру из src в dist
+// dist - обязательно ссылка &
+func StructDeepCopy(src, dist interface{}) (err error) {
+	buf := bytes.Buffer{}
+	if err = gob.NewEncoder(&buf).Encode(src); err != nil {
+		return
+	}
+	return gob.NewDecoder(&buf).Decode(dist)
+}
+
+// IsEmptyValue - возвращает true если значение по умолчанию (0, пустая строка, пустой слайс)
+func IsEmptyValue(v any) bool {
+	rv := reflect.ValueOf(v)
+	Otvet := !rv.IsValid() || reflect.DeepEqual(rv.Interface(), reflect.Zero(rv.Type()).Interface())
+	return Otvet
+}
+
+// StringIdentifierFromUUID - возвращает строку из UUID
+func StringIdentifierFromUUID() string {
+	Otvet := uuid.New().String()
+	Otvet = strings.ReplaceAll(Otvet, "-", "")
+
+	return Otvet
+}
+
+// IndexSubstringMin - возвращает индекс первого вхождения в строке
+func IndexSubstringMin(s string, MassSubstr ...string) int {
+	Otvet := -1
+
+	for _, v := range MassSubstr {
+		Otvet1 := -1
+		if v != "" {
+			Otvet1 = strings.Index(s, v)
+		}
+		if Otvet1 != -1 && (Otvet1 < Otvet || Otvet == -1) {
+			Otvet = Otvet1
+		}
+	}
+
+	return Otvet
+}
+
+// IndexSubstringMin2 - возвращает индекс первого вхождения в строке
+func IndexSubstringMin2(s string, substr1, substr2 string) int {
+	Otvet := -1
+
+	Otvet1 := -1
+	Otvet2 := -1
+	if substr1 != "" {
+		Otvet1 = strings.Index(s, substr1)
+	}
+	if substr2 != "" {
+		Otvet2 = strings.Index(s, substr2)
+	}
+
+	if Otvet1 != -1 && (Otvet1 < Otvet2 || Otvet2 == -1) {
+		Otvet = Otvet1
+	} else {
+		Otvet = Otvet2
+	}
+
+	return Otvet
+}
+
+// SortMapStringInt_Desc - сортирует map по значению, по убыванию
+func SortMapStringInt_Desc(values map[string]int) []string {
+	type kv struct {
+		Key   string
+		Value int
+	}
+	var ss []kv
+	for k, v := range values {
+		ss = append(ss, kv{k, v})
+	}
+	sort.Slice(ss, func(i, j int) bool {
+		return ss[i].Value > ss[j].Value
+	})
+	ranked := make([]string, len(values))
+	for i, kv := range ss {
+		ranked[i] = kv.Key
+	}
+	return ranked
+}
+
+// IsNilInterface - проверка интерфейса на nil
+func IsNilInterface(i any) bool {
+	iv := reflect.ValueOf(i)
+	if !iv.IsValid() {
+		return true
+	}
+
+	switch iv.Kind() {
+	case reflect.Ptr, reflect.Slice, reflect.Map, reflect.Func, reflect.Interface:
+		return iv.IsNil()
+	default:
+		return false
+	}
+}
+
+// StringFromMassInt64 - преобразование массива int64 в строку
+func StringFromMassInt64(A []int64, delim string) string {
+
+	var buffer bytes.Buffer
+	for i := 0; i < len(A); i++ {
+		s1 := StringFromInt64(A[i])
+		buffer.WriteString(s1)
+		if i != len(A)-1 {
+			buffer.WriteString(delim)
+		}
+	}
+
+	return buffer.String()
+}
+
+// IsInt - проверяет, является ли строка целым числом
+func IsInt(s string) bool {
+	Otvet := false
+	if s == "" {
+		return Otvet
+	}
+
+	for _, c := range s {
+		if !unicode.IsDigit(c) {
+			return Otvet
+		}
+	}
+
+	Otvet = true
+	return Otvet
+}
+
+// Int32FromString - возвращает int32 из строки
+func Int32FromString(s string) (int32, error) {
+	var Otvet int32
+	var err error
+
+	Otvet64, err := strconv.ParseInt(s, 10, 32)
+	if err != nil {
+		return Otvet, err
+	}
+
+	Otvet = int32(Otvet64)
+
+	return Otvet, err
+}
+
+// ExecuteShellCommand - выполняет команду в shell, и возвращает строку результата
+func ExecuteShellCommand(TextCommand string, args ...string) (string, error) {
+	Otvet := ""
+	var err error
+
+	MassByte, err := exec.Command(TextCommand, args...).CombinedOutput()
+	Otvet = string(MassByte)
+	if err != nil {
+		return Otvet, err
+	}
+
+	return Otvet, err
+}
+
+// DeleteEndEndline - убирает в конце "\n"
+func DeleteEndEndline(Text string) string {
+	Otvet := Text
+
+	if Otvet == "" {
+		return Otvet
+	}
+
+	LastSymbol := Otvet[len(Otvet)-1:]
+	if LastSymbol == "\n" {
+		Otvet = Otvet[0 : len(Otvet)-1]
+	}
+
+	return Otvet
+}
+
+// Find_Directory_ModifiedTime - возвращает дату последнего изменения в папке internal
+func Find_Directory_ModifiedTime(FolderName string) (time.Time, error) {
+	var Otvet time.Time
+	var err error
+
+	dir := ProgramDir()
+	dir = dir + FolderName
+
+	ok, err := FileExists(dir)
+	if err != nil {
+		err = fmt.Errorf("Find_Directory_ModifiedTime() FileExists() error: %w", err)
+		return Otvet, err
+	}
+
+	if ok == false {
+		err = fmt.Errorf("Find_Directory_ModifiedTime() FileExists() error: file not exists: %s", dir)
+		return Otvet, err
+	}
+
+	//найдём дату папки
+	f, err := os.Open(dir)
+	if err != nil {
+		err = fmt.Errorf("Find_Directory_ModifiedTime() os.Open() error: %w", err)
+		return Otvet, err
+	}
+	defer f.Close()
+
+	stat, err := f.Stat()
+	if err != nil {
+		err = fmt.Errorf("Find_Directory_ModifiedTime() f.Stat() error: %w", err)
+		return Otvet, err
+	}
+
+	Otvet = stat.ModTime()
+
+	return Otvet, err
+}
+
+// Show_Repository_Code_ModifiedTime - выводит дату последнего изменения в папках cmd, internal, pkg, vendor
+func Show_Repository_Code_ModifiedTime() {
+	Date, err := Find_Repository_Code_ModifiedTime()
+	if err != nil {
+		println("Find_Repository_Code_ModifiedTime() error: ", err.Error())
+		return
+	}
+
+	if Date.IsZero() {
+		println("Last repository code modified time: not found")
+		return
+	}
+
+	println("Last repository code modified time: ", Date.String())
+
+}
+
+// Find_Repository_Code_ModifiedTime - возвращает дату последнего изменения в папках cmd, internal, pkg, vendor
+func Find_Repository_Code_ModifiedTime() (time.Time, error) {
+	var Otvet time.Time
+	var err error
+
+	//cmd
+	Time_cmd, err := Find_Directory_ModifiedTime("cmd")
+	if err != nil {
+		//return Otvet, err
+	}
+
+	//internal
+	Time_internal, err := Find_Directory_ModifiedTime("internal")
+	if err != nil {
+		//return Otvet, err
+	}
+
+	//pkg
+	Time_pkg, err := Find_Directory_ModifiedTime("pkg")
+	if err != nil {
+		//return Otvet, err
+	}
+
+	//vendor
+	Time_vendor, err := Find_Directory_ModifiedTime("vendor")
+	if err != nil {
+		//return Otvet, err
+	}
+
+	//выбираем максимальную дату
+	Otvet = TimeMax(Time_cmd, Time_internal, Time_pkg, Time_vendor)
+
+	return Otvet, err
+}
+
+// TimeMax - возвращает максимальную дату
+func TimeMax(x time.Time, y ...time.Time) time.Time {
+	maxTime := x
+	for _, val := range y {
+		if val.After(maxTime) {
+			maxTime = val
+		}
+	}
+	return maxTime
+}
+
+// TimeMin - возвращает минимальную дату
+func TimeMin(x time.Time, y ...time.Time) time.Time {
+	minTime := x
+	for _, val := range y {
+		if val.Before(minTime) {
+			minTime = val
+		}
+	}
+	return minTime
+}
+
+// Show_Version - выводит версию сервиса на экран
+func Show_Version(Version string) {
+	println("Service version: ", Version)
+}
+
+// MassFrom_MapString - сортирует map по названию колонок и возвращает слайс
+func MassFrom_MapString[V any](Map map[string]V) []V {
+	Otvet := make([]V, 0)
+
+	//сортировка по названию колонок
+	keys := make([]string, 0, len(Map))
+	for k := range Map {
+		keys = append(keys, k)
+	}
+	sort.Strings(keys)
+
+	//
+	for _, key1 := range keys {
+		Value, ok := Map[key1]
+		if ok == false {
+			fmt.Printf("Map[%s] not found\n", key1)
+		}
+		Otvet = append(Otvet, Value)
+	}
+
+	return Otvet
+}
+
+// SortMass - сортирует слайс
+func SortMass[T constraints.Ordered](s []T) {
+	sort.Slice(s, func(i, j int) bool {
+		return s[i] < s[j]
+	})
+}
+
+// MassFrom_Map - сортирует map по названию колонок и возвращает слайс
+func MassFrom_Map[C constraints.Ordered, V any](Map map[C]V) []V {
+	Otvet := make([]V, 0)
+
+	//сортировка по названию колонок
+	keys := make([]C, 0, len(Map))
+	for k := range Map {
+		keys = append(keys, k)
+	}
+	SortMass(keys)
+
+	//
+	for _, key1 := range keys {
+		Value, ok := Map[key1]
+		if ok == false {
+			fmt.Printf("Map[%v] not found\n", key1)
+		}
+		Otvet = append(Otvet, Value)
+	}
+
+	return Otvet
+}
+
+// Substring - take at most last n characters, from start index
+func Substring(input string, StartIndex int, length int) string {
+	//asRunes := []rune(input)
+
+	if StartIndex >= len(input) {
+		return ""
+	}
+
+	if (StartIndex + length) >= len(input) {
+		length = len(input) - StartIndex
+	}
+
+	//if StartIndex+length > len(asRunes) {
+	//	length = len(asRunes) - StartIndex
+	//}
+
+	Otvet := string(input[StartIndex : StartIndex+length])
+	return Otvet
+}
+
+// IntNot0 - возвращает первое ненулевое значение
+func IntNot0(MassInt ...int) int {
+	Otvet := 0
+
+	for _, v := range MassInt {
+		if v != 0 {
+			Otvet = v
+			break
+		}
+	}
+
+	return Otvet
+}
+
+// InsertTextFrom - вставляет текст в середину строки
+func InsertTextFrom(Text string, TextAdd string, IndexFrom int) string {
+	var buffer bytes.Buffer
+
+	//
+	if IndexFrom >= len(Text) {
+		return Text + TextAdd
+	}
+
+	//
+	if IndexFrom < 0 {
+		return TextAdd + Text
+	}
+
+	//
+	s2 := SubstringLeft(Text, IndexFrom+1)
+	buffer.WriteString(s2)
+	buffer.WriteString(TextAdd)
+	s3 := Substring(Text, IndexFrom, len(Text+TextAdd))
+	buffer.WriteString(s3)
+
+	Otvet := buffer.String()
+	return Otvet
 }
